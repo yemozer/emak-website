@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-primary: 235 52% 32%; /* RGB(39, 45, 122) */
+  --color-primary-foreground: 0 0% 100%; /* White */
+  --color-gray: 0 0% 70%; /* RGB(178, 178, 178) */
+  
+  /* System Colors */
+  --color-background: 0 0% 100%;
+  --color-foreground: 222.2 84% 4.9%;
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 222.2 84% 4.9%;
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 222.2 84% 4.9%;
+  --color-secondary: 0 0% 96.1%;
+  --color-secondary-foreground: 222.2 47.4% 11.2%;
+  --color-muted: 0 0% 96.1%;
+  --color-muted-foreground: 0 0% 45%;
+  --color-accent: 235 52% 95%;
+  --color-accent-foreground: 235 52% 32%;
+  --color-destructive: 0 84.2% 60.2%;
+  --color-destructive-foreground: 210 40% 98%;
+  --color-border: 0 0% 89%;
+  --color-input: 0 0% 89%;
+  --color-ring: 235 52% 32%;
+  --radius: 0.75rem;
+}
+
+* {
+  border-color: hsl(var(--color-border));
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth transitions for interactive elements */
+a, button {
+  transition-property: color, background-color, border-color, transform, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid hsl(var(--color-ring));
+  outline-offset: 2px;
+  border-radius: calc(var(--radius) - 2px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--color-muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-gray));
+  border-radius: 6px;
+  border: 2px solid hsl(var(--color-muted));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-primary));
+}
+
+/* Grid pattern utility */
+.bg-grid-white\/10 {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Text gradient utility */
+.text-gradient {
+  background: linear-gradient(135deg, hsl(var(--color-primary)), hsl(var(--color-primary) / 0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Section spacing */
+section {
+  scroll-margin-top: 5rem;
+}
+
+/* Button styles */
+.btn-primary {
+  background: hsl(var(--color-primary));
+  color: hsl(var(--color-primary-foreground));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-primary:hover {
+  background: hsl(var(--color-primary) / 0.9);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/* Input focus styles */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: hsl(var(--color-primary));
+  box-shadow: 0 0 0 3px hsl(var(--color-primary) / 0.1);
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--color-primary)), hsl(var(--color-primary) / 0.8));
+}
+
+.bg-gradient-muted {
+  background: linear-gradient(180deg, hsl(var(--color-background)), hsl(var(--color-muted) / 0.3));
+}
