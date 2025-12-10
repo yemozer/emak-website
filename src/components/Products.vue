@@ -1,5 +1,8 @@
 <template>
-  <section id="urunler" class="py-12 md:py-20 lg:py-28 bg-white">
+  <section id="urunler" class="relative py-12 md:py-20 lg:py-28 bg-gradient-to-b from-white via-gray-50/30 to-white overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-[rgb(39,45,122)]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-[rgb(59,70,180)]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
     <div class="container mx-auto px-4 lg:px-8">
       <!-- Header -->
       <div class="mb-12 text-center">
@@ -16,18 +19,26 @@
       </div>
 
       <!-- Main Product Categories -->
-      <div class="">
+      <div class="relative z-10">
         <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-5">
           <div
             v-for="category in mainCategories"
             :key="category.id"
-            class="group relative overflow-hidden rounded-xl border border-[rgb(178,178,178)]/20 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-[rgb(39,45,122)]/30 cursor-pointer"
+            class="group relative overflow-hidden rounded-xl border border-[rgb(178,178,178)]/20 bg-white p-6 shadow-sm hover:shadow-xl transition-all hover:border-[rgb(39,45,122)]/40 cursor-pointer hover:-translate-y-1"
           >
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[rgb(39,45,122)]/10 transition-colors group-hover:bg-[rgb(39,45,122)]/20">
-              <component :is="category.icon" :size="28" class="text-[rgb(39,45,122)]" />
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[rgb(39,45,122)]/5 via-transparent to-[rgb(59,70,180)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <!-- Icon with enhanced styling -->
+            <div class="relative mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[rgb(39,45,122)]/10 to-[rgb(39,45,122)]/5 transition-all group-hover:bg-gradient-to-br group-hover:from-[rgb(39,45,122)]/20 group-hover:to-[rgb(59,70,180)]/10 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-glow">
+              <component :is="category.icon" :size="28" class="text-[rgb(39,45,122)] transition-transform group-hover:scale-110" />
             </div>
-            <h4 class="text-lg font-semibold text-[rgb(39,45,122)] mb-2">{{ category.name }}</h4>
-            <p class="text-sm text-[rgb(178,178,178)] leading-relaxed">{{ category.description }}</p>
+            
+            <h4 class="relative text-lg font-semibold text-[rgb(39,45,122)] mb-2 group-hover:text-gradient-primary transition-all">{{ category.name }}</h4>
+            <p class="relative text-sm text-[rgb(178,178,178)] leading-relaxed group-hover:text-gray-600 transition-colors">{{ category.description }}</p>
+            
+            <!-- Bottom accent line -->
+            <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[rgb(39,45,122)] to-[rgb(59,70,180)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
           </div>
         </div>
       </div>

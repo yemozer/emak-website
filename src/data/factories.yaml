@@ -1,0 +1,147 @@
+# Only factories are defined here - cities are constants in code
+# Use city names (e.g., "Ankara") instead of codes (e.g., "TR06")
+# Optional lat/lng can be provided for exact factory coordinates (for detailed map view)
+fabrikalar:
+  - ad: "ABS Alçı - ANKARA BALA FABRİKA"
+    sehir: Ankara
+  - ad: "ABS Alçı - ANKARA BOZÜYÜK FABRİKA"
+    sehir: Ankara
+  - ad: "AUSTROTHERM - Ankara Fabrika"
+    sehir: Ankara
+  - ad: "DALSAN - ANKARA BALA TESİSLERİ"
+    sehir: Ankara
+  - ad: "DALSAN - ANKARA KALEBOĞAZI TESİSLERİ"
+    sehir: Ankara
+  - ad: "ENTEGRE - ANKARA FABRİKA"
+    sehir: Ankara
+  - ad: "FİXA - Ankara Fabrika"
+    sehir: Ankara
+  - ad: "KNAUF - Ahiboz Üretim Tesisi"
+    sehir: Ankara
+  - ad: "PANELSAN - PANELSAN FABRİKA"
+    sehir: Ankara
+  - ad: "TEPE - Merkez / Betopan Fabrika"
+    sehir: Ankara
+  - ad: "TEPE - Tepepan Fabrika"
+    sehir: Ankara
+  - ad: "WEBER - Ankara Fabrika"
+    sehir: Ankara
+
+  - ad: "AUSTROTHERM - Merkez Ofis - Dilovası Fabrika"
+    sehir: Kocaeli
+  - ad: "İZOCAM - Gebkim Foamboard, Izopor ve Tekiz Panel Üretim Tesisleri (Dilovası)"
+    sehir: Kocaeli
+  - ad: "İZOCAM - Taşyünü Tesisi (Dilovası)"
+    sehir: Kocaeli
+  - ad: "KNAUF - İzmit Üretim Tesisi"
+    sehir: Kocaeli
+  - ad: "WEBER - Gebze Fabrika"
+    sehir: Kocaeli
+
+  - ad: "BONUS YALITIM - XPS & Bitümlü Membran İstanbul Üretim Tesisi"
+    sehir: İstanbul
+  - ad: "ENTEGRE - ÖMERLİ FABRİKA"
+    sehir: İstanbul
+  - ad: "FİXA - İstanbul Fabrika"
+    sehir: İstanbul
+  - ad: "KALDE - İstanbul Fabrika"
+    sehir: İstanbul
+
+  - ad: "ÖZKENT ÇORUM TUĞLA KİREMİT FABRİKASI"
+    sehir: Çorum
+  - ad: "SELİN TUĞLA"
+    sehir: Çorum
+
+  - ad: "Aragonit Yapı Kimyasalları Antalya Fabrikası"
+    sehir: Antalya
+  - ad: "CUBO - ANTALYA MERKEZ FABRİKA GENEL MÜDÜRLÜK"
+    sehir: Antalya
+
+  - ad: "ABS ALÇI - TARSUS FABRİKA"
+    sehir: Mersin
+  - ad: "İZOCAM - Camyünü ve Foamboard Üretim Tesisleri (Tarsus)"
+    sehir: Mersin
+
+  - ad: "AUSTROTHERM - Kayseri Üretim Tesisi"
+    sehir: Kayseri
+  - ad: "İZOCAM - Taşyünü Tesisi (Kayseri)"
+    sehir: Kayseri
+
+  - ad: "ENTEGRE - SAMSUN FABRİKA"
+    sehir: Samsun
+  - ad: "WEBER - Samsun Fabrika"
+    sehir: Samsun
+
+  - ad: "FİXA - Adana Fabrika"
+    sehir: Adana
+  - ad: "WEBER - Adana Fabrika"
+    sehir: Adana
+
+  - ad: "AUSTROTHERM - Gaziantep Üretim Tesisi"
+    sehir: Gaziantep
+  - ad: "WALLBOARD - Gaziantep Üretim Tesisi"
+    sehir: Gaziantep
+
+  - ad: "AUSTROTHERM - Turgutlu Fabrika"
+    sehir: Manisa
+  - ad: "DALSAN - TURGUTLU TESİSLERİ"
+    sehir: Manisa
+
+  - ad: "BOSTİK - Çorlu Fabrika"
+    sehir: Tekirdağ
+  - ad: "ODE Tekirdağ Üretim Tesisleri"
+    sehir: Tekirdağ
+
+  - ad: "BOSTİK - İnegöl Fabrika"
+    sehir: Bursa
+
+  - ad: "WEBER - İZMİR FABRİKA"
+    sehir: İzmir
+
+  - ad: "KILIÇOĞLU - ESKİŞEHİR FABRİKA"
+    sehir: Eskişehir
+  - ad: "MEGARON - ESKİŞEHİR FABRİKA"
+    sehir: Eskişehir
+  - ad: "ODE - Eskişehir Üretim Tesisleri"
+    sehir: Eskişehir
+  - ad: "İZOCAM - Elastomerik Kauçuk ve Polietilen Köpük Üretim Tesisi (Eskişehir)"
+    sehir: Eskişehir
+
+  - ad: "BONUS YALITIM - Sakarya Taş Yünü Üretim Tesisi"
+    sehir: Sakarya
+
+  - ad: "BTG GAZBETON - BETONG YAPI OSMANİYE FABRİKA"
+    sehir: Osmaniye
+
+  - ad: "ENTEGRE - BURDUR FABRİKA"
+    sehir: Burdur
+
+  - ad: "GEYİK BİMS KIRIKKALE FABRİKA"
+    sehir: Kırıkkale
+
+  - ad: "KÇS Kahramanmaraş Fabrika"
+    sehir: Kahramanmaraş
+
+  - ad: "ABS Alçı - SİVAS FABRİKA"
+    sehir: Sivas
+
+  - ad: "AGT BİMS NEVŞEHİR FABRİKA"
+    sehir: Nevşehir
+
+  - ad: "ABS ALÇI - AŞKALE FABRİKA"
+    sehir: Erzurum
+
+  - ad: "Aragonit Yapı Kimyasalları Aksaray Fabrikası"
+    sehir: Aksaray
+
+  - ad: "AUSTROTHERM - Trabzon Üretim Tesisi"
+    sehir: Trabzon
+
+  - ad: "MARMARA ÇİMENTO - DÜZCE FABRİKA"
+    sehir: Düzce
+    lat: 40.943741
+    lng: 31.394809
+
+  - ad: "Aragonit Yapı Kimyasalları Merkez Fabrikası"
+    sehir: Kütahya
+

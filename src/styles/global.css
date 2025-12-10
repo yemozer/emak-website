@@ -154,3 +154,107 @@ select:focus {
 .bg-gradient-muted {
   background: linear-gradient(180deg, hsl(var(--color-background)), hsl(var(--color-muted) / 0.3));
 }
+
+/* Modern glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Enhanced shadow utilities */
+.shadow-glow {
+  box-shadow: 0 0 20px rgba(39, 45, 122, 0.3);
+}
+
+.shadow-glow-lg {
+  box-shadow: 0 0 40px rgba(39, 45, 122, 0.4);
+}
+
+/* Modern gradient text */
+.text-gradient-primary {
+  background: linear-gradient(135deg, rgb(39, 45, 122), rgb(59, 70, 180));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.bg-animated-gradient {
+  background: linear-gradient(-45deg, rgb(39, 45, 122), rgb(59, 70, 180), rgb(39, 45, 122), rgb(79, 90, 200));
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse glow animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(39, 45, 122, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(39, 45, 122, 0.8);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Smooth scale on hover */
+.hover-scale {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Modern card with gradient border */
+.card-gradient-border {
+  position: relative;
+  background: white;
+  border-radius: 1rem;
+  padding: 1px;
+}
+
+.card-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 1px;
+  background: linear-gradient(135deg, rgb(39, 45, 122), rgb(59, 70, 180));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-gradient-border:hover::before {
+  opacity: 1;
+}

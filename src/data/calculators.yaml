@@ -1,0 +1,724 @@
+# Hesap Tabloları Konfigürasyon Dosyası
+# Bu dosyayı düzenleyerek hesaplayıcıları, formülleri ve katsayıları değiştirebilirsiniz.
+# 
+# DÜZENLEME İÇİN:
+# 1. GitHub'da bu dosyaya gidin: https://github.com/[repo]/emakyapi-website/src/data/calculators.yaml
+# 2. Sağ üstteki "Edit" (Düzenle) butonuna tıklayın
+# 3. Değişikliklerinizi yapın
+# 4. Sayfanın altındaki "Commit changes" (Değişiklikleri kaydet) butonuna tıklayın
+# 5. Cloudflare otomatik olarak yeni versiyonu yayınlayacak (1-2 dakika sürer)
+#
+# FORMÜL YAZMA:
+# - Girdiler: metrekare, kalinlik, vb. (Türkçe değişken isimleri)
+# - Matematik işlemler: +, -, *, /, ()
+# - Örnek: "metrekare * 4" = metrekare çarpı 4
+# - Örnek: "metrekare * kalinlik / 100" = metrekare çarpı kalınlık bölü 100
+# - Yuvarlama: Math.ceil(...) = yukarı yuvarla, Math.max(1, ...) = en az 1
+
+hesaplayicilar:
+  # ============================================
+  # MANTOLAMA SİSTEMİ HESAPLAYICISI
+  # ============================================
+  - kimlik: mantolama
+    baslik: Mantolama Sistemleri
+    alt_baslik: Mantolama Sistemi
+    aciklama: Metrekare alanı ve foamboard kalınlığını girerek mantolama sistemi için ihtiyaç duyulan malzemeleri hesaplayın.
+    
+    # Girdi alanları (kullanıcının dolduracağı)
+    girdiler:
+      - anahtar: metrekare
+        etiket: Metrekare (m²)
+        birim: m²
+        minimum: 0
+        adim: 0.1
+        ornek: "Metrekare giriniz"
+        varsayilan: 10
+        
+      - anahtar: kalinlik
+        etiket: Foamboard Kalınlığı*
+        birim: cm
+        minimum: 0
+        adim: 0.5
+        ornek: "Örn: 3"
+        varsayilan: 3
+    
+    # Hesaplanacak malzemeler ve formülleri
+    malzemeler:
+      - anahtar: foamboard
+        etiket: Foamboard Miktarı
+        birim: m³
+        formul: "metrekare * kalinlik / 100"
+        # Açıklama: Metrekare × Kalınlık(cm) / 100 = Hacim(m³)
+        
+      - anahtar: yapistirma_harci
+        etiket: Isı Levha Yapıştırma Harcı
+        birim: kg
+        formul: "metrekare * 4"
+        # Katsayı: 4 kg/m²
+        
+      - anahtar: siva_harci
+        etiket: Isı Levha Sıva Harcı
+        birim: kg
+        formul: "metrekare * 5"
+        # Katsayı: 5 kg/m²
+        
+      - anahtar: dekoratif_siva
+        etiket: Dekoratif Mineral Sıva
+        birim: kg
+        formul: "metrekare * 3"
+        # Katsayı: 3 kg/m²
+        
+      - anahtar: siva_filesi
+        etiket: Sıva Filesi (160 gr/m²)
+        birim: Adet
+        formul: "Math.max(1, Math.ceil(metrekare * 11 / 10))"
+        # Katsayı: 1.1 adet/m² (yukarı yuvarlanır, en az 1)
+        
+      - anahtar: mantolama_dubeli
+        etiket: Mantolama Dübeli
+        birim: Adet
+        formul: "metrekare * 6"
+        # Katsayı: 6 adet/m²
+        
+      - anahtar: kose_profili
+        etiket: PVC Fileli Köşe Profili (2,5 mt)
+        birim: Adet
+        formul: "Math.max(1, Math.ceil(metrekare * 0.1))"
+        # Katsayı: 0.1 adet/m² (yukarı yuvarlanır, en az 1)
+    
+    # Alt bilgi notları
+    notlar:
+      - Alçı Levha Köşe Profili projeye göre belirlenir.
+      - "* DC Profil aks aralıkları 60 cm olarak belirlenmiştir."
+      - "** Dübel-Vida her 60 cm.'de bir montaja göre belirlenmiştir."
+      - "» Tek İskeletli Tek Kat Alçı Levha Bölme Duvar Sistemi Metraj Analizi 2,50 m yükseklikte ve 1 m² alan için %5 malzeme firesi düşünülerek hazırlanmıştır."
+      - "» Metraj hesaplaması proje koşullarına göre değişiklik gösterebilir; proje bazında danışmanlık almanızı öneririz."
+
+  # ============================================
+  # MODÜLER ASMA TAVAN SİSTEMİ HESAPLAYICISI
+  # ============================================
+  - kimlik: modular_asma_tavan
+    baslik: Modüler Asma Tavan Sistemleri
+    alt_baslik: Modüler Asma Tavan Sistemi
+    aciklama: Toplam metrajı girin, modüler asma tavan sistemi için sarfiyatı görün.
+    
+    girdiler:
+      - anahtar: metrekare
+        etiket: Metrekare (m²)
+        birim: m²
+        minimum: 0
+        adim: 0.1
+        ornek: "Metrekare giriniz"
+        varsayilan: 10
+    
+    malzemeler:
+      - anahtar: levha_60x60
+        etiket: 60 x 60 Levha
+        birim: m²
+        formul: "metrekare * 2.77"
+      
+      - anahtar: t24_ana
+        etiket: T24 Ana Taşıyıcı (L=3,60 m)
+        birim: m
+        formul: "metrekare * 0.24"
+      
+      - anahtar: t24_uzun
+        etiket: T24 Uzun Tali Taşıyıcı (L=1,20 m)
+        birim: m
+        formul: "metrekare * 1.39" # 10 m² için ~13.9 m
+      
+      - anahtar: t24_kisa
+        etiket: T24 Kısa Tali Taşıyıcı (L=0,60 m)
+        birim: m
+        formul: "metrekare * 1.38"
+      
+      - anahtar: l_kosebent
+        etiket: L Köşebent (L=3,00 m)
+        birim: m
+        formul: "metrekare * 3.7" # 10 m² için ~37 m
+      
+      - anahtar: celik_dubel
+        etiket: Çelik Dübel
+        birim: Adet
+        formul: "metrekare * 0.7" # 10 m² için ~7 adet
+      
+      - anahtar: aski_teli
+        etiket: Askı Teli
+        birim: Adet
+        formul: "metrekare * 0.7" # 10 m² için ~7 adet
+      
+      - anahtar: ciftyay
+        etiket: Çiftli Yay
+        birim: Adet
+        formul: "metrekare * 0.7" # 10 m² için ~7 adet
+      
+      - anahtar: pul_baslikli_dubel
+        etiket: Pul Başlıklı Dübel *
+        birim: Adet
+        formul: "Math.max(1, Math.ceil(metrekare * 2.1))" # 10 m² için ~21 adet
+    
+    notlar:
+      - ""
+      - "* Pul Başlıklı Dübel her 60 cm.’de bir montaja göre belirlenmiştir."
+      - "» Modüler Asma Tavan Sistemi Metraj Analizi 1 m² alan için hazırlanmıştır."
+      - "» Metraj hesaplaması proje koşullarına göre değişiklik arz edeceğinden, ustalarımıza proje bazında danışmanızı tavsiye ederiz."
+      - "» Kullanılan malzemeler hakkında lütfen danışınız."
+
+  # ============================================
+  # BÖLME DUVAR SİSTEMLERİ HESAPLAYICISI
+  # ============================================
+  - kimlik: bolme_duvar
+    baslik: Bölme Duvar Sistemleri
+    alt_baslik: Bölme Duvar Sistemleri
+    aciklama: Metrajı girin, seçtiğiniz sistem için sarfiyatı görün.
+    
+    girdiler:
+      - anahtar: metrekare
+        etiket: Metrekare (m²)
+        birim: m²
+        minimum: 0
+        adim: 0.1
+        ornek: "Metrekare giriniz"
+        varsayilan: 10
+
+    # Varsayılan konfigürasyon (opsiyonel - belirtilmezse hiçbiri seçili olmaz)
+    varsayilan_konfigurasyon: tek_iskelet_tek_kat
+
+    # Konfigürasyonlar: Her konfigürasyonun kendi malzeme listesi var
+    konfigurasyonlar:
+      - anahtar: tek_iskelet_tek_kat
+        etiket: Tek İskeletli Tek Kat Alçı Levha
+        aciklama: Varsayılan tek kat sistem
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 2.1"
+          - anahtar: du_profili
+            etiket: DU Profili
+            birim: m
+            formul: "metrekare * 2.1"
+          - anahtar: du_profili_ek
+            etiket: DU Profili *
+            birim: m
+            formul: "metrekare * 2.3"
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçı
+            birim: kg
+            formul: "metrekare * 4.2"
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 7.35"
+          - anahtar: vida_25mm
+            etiket: Sivri Uçlu Borazan Vida (25 mm)
+            birim: Adet
+            formul: "metrekare * 29"
+          - anahtar: dubel_vida
+            etiket: Dübel - Vida **
+            birim: Adet
+            formul: "metrekare * 3"
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 3.2"
+          - anahtar: yalitim
+            etiket: Yalıtım Malzemesi (Camyünü/Taşyünü)
+            birim: m²
+            formul: "metrekare * 1.05"
+          - anahtar: ses_yalitim_bandi
+            etiket: Ses Yalıtım Bandı
+            birim: m
+            formul: "metrekare * 1.05"
+
+      - anahtar: tek_iskelet_cift_kat
+        etiket: Tek İskeletli Çift Kat Alçı Levha
+        aciklama: Çift kat levha; katsayılar örnek olması için aynıdır, ihtiyaç varsa değiştirin
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 2.1"
+          - anahtar: du_profili
+            etiket: DU Profili
+            birim: m
+            formul: "metrekare * 2.1"
+          - anahtar: du_profili_ek
+            etiket: DU Profili *
+            birim: m
+            formul: "metrekare * 2.3"
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçı
+            birim: kg
+            formul: "metrekare * 4.2"
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 7.4"
+          - anahtar: vida_25mm
+            etiket: Sivri Uçlu Borazan Vida (25 mm)
+            birim: Adet
+            formul: "metrekare * 29"
+          - anahtar: dubel_vida
+            etiket: Dübel - Vida **
+            birim: Adet
+            formul: "metrekare * 3"
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 3.2"
+          - anahtar: yalitim
+            etiket: Yalıtım Malzemesi (Camyünü/Taşyünü)
+            birim: m²
+            formul: "metrekare * 1.1"
+          - anahtar: ses_yalitim_bandi
+            etiket: Ses Yalıtım Bandı
+            birim: m
+            formul: "metrekare * 1.1"
+
+      - anahtar: cift_iskelet_cift_kat
+        etiket: Çift İskeletli Çift Kat Alçı Levha
+        aciklama: Çift iskeletli sistem; malzeme seti değişebilir, gerekirse düzenleyin
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 2.1"
+          - anahtar: du_profili
+            etiket: DU Profili
+            birim: m
+            formul: "metrekare * 2.1"
+          - anahtar: du_profili_ek
+            etiket: DU Profili *
+            birim: m
+            formul: "metrekare * 2.3"
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçı
+            birim: kg
+            formul: "metrekare * 4.2"
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 7.4"
+          - anahtar: vida_25mm
+            etiket: Sivri Uçlu Borazan Vida (25 mm)
+            birim: Adet
+            formul: "metrekare * 29"
+          - anahtar: dubel_vida
+            etiket: Dübel - Vida **
+            birim: Adet
+            formul: "metrekare * 3"
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 3.2"
+          - anahtar: yalitim
+            etiket: Yalıtım Malzemesi (Camyünü/Taşyünü)
+            birim: m²
+            formul: "metrekare * 1.1"
+          - anahtar: ses_yalitim_bandi
+            etiket: Ses Yalıtım Bandı
+            birim: m
+            formul: "metrekare * 1.1"
+
+    notlar:
+      - Alçı Levha Köşe Profili projeye göre belirlenir
+      - "* DC Profil aks aralıkları 60 cm olarak belirlenmiştir."
+      - "** Dübel-Vida her 60 cm.’de bir montaja göre belirlenmiştir."
+      - "» Tek İskeletli Tek Kat Alçı Levha Bölme Duvar Sistemi Metraj Analizi 2,50 m. yükseklikte ve 1 m² alan için %5 malzeme firesi düşünülerek hazırlanmıştır."
+      - "» Metraj hesaplaması proje koşullarına göre değişiklik arz edeceğinden, ustalarımıza proje bazında danışmanızı tavsiye ederiz."
+
+  # ============================================
+  # METAL İSKELETLİ AGRAFLI DUVAR GİYDİRME HESAPLAYICISI
+  # ============================================
+  - kimlik: agrafli_duvar_giydirme
+    baslik: Metal İskeletli Agraflı Duvar Giydirme
+    alt_baslik: Metal İskeletli Agraflı Duvar Giydirme
+    aciklama: Metrajı girin, agraflı duvar giydirme sistemi için tek/çift kat sarfiyatını görün.
+    
+    girdiler:
+      - anahtar: metrekare
+        etiket: Metrekare (m²)
+        birim: m²
+        minimum: 0
+        adim: 0.1
+        ornek: "Metrekare giriniz"
+        varsayilan: 10
+
+    # Varsayılan konfigürasyon (opsiyonel)
+    varsayilan_konfigurasyon: tek_kat
+
+    # Konfigürasyonlar: Her konfigürasyonun kendi malzeme listesi var
+    konfigurasyonlar:
+      - anahtar: tek_kat
+        etiket: Tek Kat Alçı Levha
+        aciklama: Tek Kat Alçı Levha Duvar Giydirme Sistemi
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 1.05"
+          - anahtar: tu_profili
+            etiket: TU Profili
+            birim: m
+            formul: "metrekare * 0.9"
+          - anahtar: tc_profili
+            etiket: TC Profili *
+            birim: m
+            formul: "metrekare * 2.3"
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçı
+            birim: kg
+            formul: "metrekare * 2.1"
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 3.7"
+          - anahtar: vida_25mm
+            etiket: Sivri Uçlu Borazan Vida (25 mm)
+            birim: Adet
+            formul: "metrekare * 13"
+          - anahtar: agraf
+            etiket: Agraf **
+            birim: Adet
+            formul: "metrekare * 2"
+          - anahtar: agraf_vidasi
+            etiket: Agraf Vidası
+            birim: Adet
+            formul: "metrekare * 2"
+          - anahtar: dubel_vida
+            etiket: Dübel-Vida ***
+            birim: Adet
+            formul: "metrekare * 3"
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 1.6"
+          - anahtar: yalitim
+            etiket: Yalıtım Malzemesi (Camyünü/Taşyünü)
+            birim: m²
+            formul: "metrekare * 1.05"
+          - anahtar: ses_yalitim_bandi
+            etiket: Ses Yalıtım Bandı
+            birim: m
+            formul: "metrekare * 1.05"
+
+      - anahtar: cift_kat
+        etiket: Çift Kat Alçı Levha
+        aciklama: 1 m² Metal İskeletli Agraflı Çift Kat Alçı Levha Duvar Giydirme Sistemi
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 2.1"
+          - anahtar: tu_profili
+            etiket: TU Profili
+            birim: m
+            formul: "metrekare * 0.9"
+          - anahtar: tc_profili
+            etiket: TC Profili *
+            birim: m
+            formul: "metrekare * 2.3"
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçısı
+            birim: kg
+            formul: "metrekare * 2.1"
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 3.7"
+          - anahtar: vida_25mm
+            etiket: Sivri Uçlu Borazan Vida (25 mm)
+            birim: Adet
+            formul: "metrekare * 130"
+          - anahtar: vida_35mm
+            etiket: Sivri Uçlu Borazan Vida (35 mm)
+            birim: Adet
+            formul: "metrekare * 290"
+          - anahtar: agraf
+            etiket: Agraf **
+            birim: Adet
+            formul: "metrekare * 2"
+          - anahtar: agraf_vidasi
+            etiket: Agraf Vidası
+            birim: Adet
+            formul: "metrekare * 2"
+          - anahtar: dubel_vida
+            etiket: Dübel - Vida ***
+            birim: Adet
+            formul: "metrekare * 3"
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 1.6"
+          - anahtar: yalitim
+            etiket: Yalıtım Malzemesi (Camyünü/Taşyünü)
+            birim: m²
+            formul: "metrekare * 1.05"
+          - anahtar: ses_yalitim_bandi
+            etiket: Ses Yalıtım Bandı
+            birim: m
+            formul: "metrekare * 1.05"
+
+    notlar:
+      - Alçı Levha Köşe Profili projeye göre belirlenir
+      - "* TC Profil aks aralıkları 60 cm olarak belirlenmiştir."
+      - "** Agraflar düşeyde 80 cm olarak belirlenmiştir."
+      - "*** Dübel-Vida her 60 cm.’de bir montaja göre belirlenmiştir."
+
+  # ============================================
+  # METAL İSKELETLİ BAĞIMSIZ DUVAR GİYDİRME HESAPLAYICISI
+  # ============================================
+  - kimlik: bagimsiz_duvar_giydirme
+    baslik: Metal İskeletli Bağımsız Duvar Giydirme
+    alt_baslik: Metal İskeletli Bağımsız Duvar Giydirme
+    aciklama: Metrajı girin, bağımsız duvar giydirme sistemi için tek/çift kat sarfiyatını görün.
+    
+    girdiler:
+      - anahtar: metrekare
+        etiket: Metrekare (m²)
+        birim: m²
+        minimum: 0
+        adim: 0.1
+        ornek: "Metrekare giriniz"
+        varsayilan: 10
+
+    varsayilan_konfigurasyon: tek_kat
+
+    konfigurasyonlar:
+      - anahtar: tek_kat
+        etiket: Tek Kat Alçı Levha
+        aciklama: 1 m² Metal İskeletli Bağımsız Tek Kat Alçı Levha Duvar Giydirme Sistemi
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 1.05"   # 100000 m² → 105000 m²
+          - anahtar: du_profili
+            etiket: DU Profili
+            birim: m
+            formul: "metrekare * 0.9"    # 100000 m² → 90000 m
+          - anahtar: dc_profili
+            etiket: DC Profili *
+            birim: m
+            formul: "metrekare * 2.3"    # 100000 m² → 230000 m
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçı
+            birim: kg
+            formul: "metrekare * 2.1"    # 100000 m² → 210000 kg
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 3.7"    # 100000 m² → 370000 kg
+          - anahtar: vida_25mm
+            etiket: Sivri Uçlu Borazan Vida (25 mm)
+            birim: Adet
+            formul: "metrekare * 14"     # 100000 m² → 1,400,000 adet
+          - anahtar: dubel_vida
+            etiket: Dübel - Vida ***
+            birim: Adet
+            formul: "metrekare * 3"      # 100000 m² → 300000 adet
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 1.6"    # 100000 m² → 160000 m
+          - anahtar: yalitim
+            etiket: Yalıtım Malzemesi (Camyünü/Taşyünü)
+            birim: m²
+            formul: "metrekare * 1.05"   # 100000 m² → 105000 m²
+          - anahtar: ses_yalitim_bandi
+            etiket: Ses Yalıtım Bandı
+            birim: m
+            formul: "metrekare * 1.05"   # 100000 m² → 105000 m
+
+      - anahtar: cift_kat
+        etiket: Çift Kat Alçı Levha
+        aciklama: 1 m² Metal İskeletli Bağımsız Çift Kat Alçı Levha Duvar Giydirme Sistemi
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 2.1"    # 100000 m² → 210000 m²
+          - anahtar: du_profili
+            etiket: DU Profili
+            birim: m
+            formul: "metrekare * 0.9"    # 100000 m² → 90000 m
+          - anahtar: dc_profili
+            etiket: DC Profili *
+            birim: m
+            formul: "metrekare * 2.3"    # 100000 m² → 230000 m
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçı
+            birim: kg
+            formul: "metrekare * 2.1"    # 100000 m² → 210000 kg
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 3.7"    # 100000 m² → 370000 kg
+          - anahtar: vida_25mm
+            etiket: Sivri Uçlu Borazan Vida (25 mm)
+            birim: Adet
+            formul: "metrekare * 13"     # 100000 m² → 1,300,000 adet
+          - anahtar: vida_35mm
+            etiket: Sivri Uçlu Borazan Vida (35 mm)
+            birim: Adet
+            formul: "metrekare * 29"     # 100000 m² → 2,900,000 adet
+          - anahtar: dubel_vida
+            etiket: Dübel - Vida ***
+            birim: Adet
+            formul: "metrekare * 3"      # 100000 m² → 300000 adet
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 1.6"    # 100000 m² → 160000 m
+          - anahtar: yalitim
+            etiket: Yalıtım Malzemesi (Camyünü/Taşyünü)
+            birim: m²
+            formul: "metrekare * 1.05"   # 100000 m² → 105000 m²
+          - anahtar: ses_yalitim_bandi
+            etiket: Ses Yalıtım Bandı
+            birim: m
+            formul: "metrekare * 1.05"   # 100000 m² → 105000 m
+
+    notlar:
+      - Alçı Levha Köşe Profili projeye göre belirlenir
+      - "* TC Profil aks aralıkları 60 cm olarak belirlenmiştir."
+      - "** Agraflar düşeyde 80 cm olarak belirlenmiştir."
+      - "*** Dübel-Vida her 60 cm.’de bir montaja göre belirlenmiştir."
+
+  # ============================================
+  # YAPIŞTIRMA DUVAR GİYDİRME SİSTEMLERİ HESAPLAYICISI
+  # ============================================
+  - kimlik: yapistirma_duvar_giydirme
+    baslik: Yapıştırma Duvar Giydirme Sistemleri
+    alt_baslik: Yapıştırma Duvar Giydirme Sistemi
+    aciklama: Metrajı girin, yapıştırma duvar giydirme sistemi için sarfiyatı görün.
+    
+    girdiler:
+      - anahtar: metrekare
+        etiket: Metrekare (m²)
+        birim: m²
+        minimum: 0
+        adim: 0.1
+        ornek: "Metrekare giriniz"
+        varsayilan: 10
+
+    varsayilan_konfigurasyon: tek_kat
+
+    konfigurasyonlar:
+      - anahtar: tek_kat
+        etiket: Tek Kat Alçı Levha
+        aciklama: 1 m² Metal İskeletli Agraflı Tek Kat Alçı Levha Duvar Giydirme Sistemi
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 0"
+          - anahtar: yapistirici
+            etiket: Rigips Alçı Levha Yapıştırıcısı
+            birim: kg
+            formul: "metrekare * 0"
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçısı
+            birim: kg
+            formul: "metrekare * 0"
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 0"
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 0"
+
+    notlar:
+      - Alçı Levha Köşe Profili projeye göre belirlenir
+      - "» Tek Kat Alçı Levha Yapıştırma Duvar Giydirme Sistemi Metraj Analizi 2,50 m. yükseklikte ve 1 m² alan için %5 malzeme firesi düşünülerek hazırlanmıştır."
+      - "» Metraj hesaplaması proje koşullarına göre değişiklik arz edeceğinden, ustalarımıza proje bazında danışmanızı tavsiye ederiz."
+      - "» Üretim gamındaki ve/veya üretim teknolojisindeki gelişmelere, pazardaki ihtiyaçlara bağlı olarak önerdiği sistemlerin tamamında veya sistem bileşenlerinin bazılarında değişiklik yapma hakkına sahiptir."
+      - "» Kullanılan malzemeler hakkında lütfen ustalarımıza danışınız."
+
+  # ============================================
+  # MONOBLOK ASMA TAVAN SİSTEMLERİ HESAPLAYICISI
+  # ============================================
+  - kimlik: monoblok_asma_tavan
+    baslik: Monoblok Asma Tavan Sistemleri
+    alt_baslik: Monoblok Asma Tavan Sistemi
+    aciklama: Metrajı girin, monoblok asma tavan sistemi için sarfiyatı görün.
+    
+    girdiler:
+      - anahtar: metrekare
+        etiket: Metrekare (m²)
+        birim: m²
+        minimum: 0
+        adim: 0.1
+        ornek: "Metrekare giriniz"
+        varsayilan: 10
+
+    varsayilan_konfigurasyon: tek_kat
+
+    konfigurasyonlar:
+      - anahtar: tek_kat
+        etiket: Tek Konfigürasyon
+        aciklama: 1 m² Monoblok Asma Tavan Sistemi
+        malzemeler:
+          - anahtar: alci_levha
+            etiket: Alçı Levha (12,5 mm)
+            birim: m²
+            formul: "metrekare * 1.05"   # 100000 m² → 105000 m²
+          - anahtar: tu_profili
+            etiket: TU Profili
+            birim: m
+            formul: "metrekare * 0.45"   # 100000 m² → 45000 m
+          - anahtar: tc_profili
+            etiket: TC Profili *
+            birim: m
+            formul: "metrekare * 3.4"    # 100000 m² → 340000 m
+          - anahtar: derz_dolgu
+            etiket: Derz Dolgu Alçı
+            birim: kg
+            formul: "metrekare * 2.1"    # 100000 m² → 210000 kg
+          - anahtar: saten_perdah
+            etiket: Saten Perdah Alçısı
+            birim: kg
+            formul: "metrekare * 3.7"    # 100000 m² → 370000 kg
+          - anahtar: celik_dubel
+            etiket: Çelik Dübel
+            birim: Adet
+            formul: "metrekare * 2"      # 100000 m² → 200000 adet
+          - anahtar: aski_cubugu
+            etiket: Askı Çubuğu
+            birim: Adet
+            formul: "metrekare * 2"      # 100000 m² → 200000 adet
+          - anahtar: klips
+            etiket: Klips
+            birim: Adet
+            formul: "metrekare * 5"      # 100000 m² → 500000 adet
+          - anahtar: vida_25mm
+            etiket: Sivri Uçlu Borazan Vida (25 mm)
+            birim: Adet
+            formul: "metrekare * 160"    # 100000 m² → 16,000,000 adet
+          - anahtar: ekleme_parcasi
+            etiket: Ekleme Parçası
+            birim: Adet
+            formul: "metrekare * 1"      # 100000 m² → 100000 adet
+          - anahtar: dubel_vida
+            etiket: Dübel-Vida**
+            birim: Adet
+            formul: "metrekare * 2"      # 100000 m² → 200000 adet
+          - anahtar: derz_bandi
+            etiket: Derz Bandı
+            birim: m
+            formul: "metrekare * 1.6"    # 100000 m² → 160000 m
+          - anahtar: yalitim
+            etiket: Yalıtım Malzemesi (Camyünü/Taşyünü)
+            birim: m²
+            formul: "metrekare * 1.05"   # 100000 m² → 105000 m²
+
+    notlar:
+      - Alçı Levha Köşe Profili projeye göre belirlenir
+      - "* TC Profil aks aralıkları Ana Taşıyıcı: 1,0 m, Tali Taşıyıcı: 0,50 m olarak belirlenmiştir."
+      - "** Dübel-Vida her 60 cm.’de bir montaja göre belirlenmiştir."
+      - "» Monoblok Asma Tavan Sistemi Metraj Analizi 1 m² alan için %5 malzeme firesi düşünülerek hazırlanmıştır."
+      - "» Metraj hesaplaması proje koşullarına göre değişiklik arz edeceğinden, ustalarımıza proje bazında danışmanızı tavsiye ederiz."
+      - "» Kullanılan malzemeler hakkında lütfen ustalarımıza danışınız."

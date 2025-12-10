@@ -1,8 +1,14 @@
 <template>
-  <section id="fabrika-konumlari" class="py-8 md:py-16 bg-gray-50">
-    <div class="container mx-auto px-4 lg:px-8">
-      <div class="mb-8 md:mb-12 text-center">
-        <h2 class="mb-3 md:mb-4 text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-[rgb(39,45,122)]">
+  <section id="fabrika-konumlari" class="relative py-8 md:py-16 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-[rgb(39,45,122)]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-[rgb(59,70,180)]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+    <div class="container relative z-10 mx-auto px-4 lg:px-8">
+      <div class="mb-4 text-center">
+        <span class="mb-3 md:mb-4 inline-block rounded-full bg-[rgb(39,45,122)]/10 px-4 md:px-5 py-1.5 md:py-2 text-xs md:text-sm font-semibold text-[rgb(39,45,122)]">
+          Fabrika Konumları
+        </span>
+        <h2 class="mb-3 md:mb-4 text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-gradient-primary">
           FABRİKA KONUMLARI
         </h2>
         <p class="mx-auto max-w-2xl text-base md:text-lg text-[rgb(178,178,178)] px-4">
@@ -11,8 +17,8 @@
       </div>
 
       <!-- Static Map Visualization -->
-      <div class="relative mb-4 md:mb-6 overflow-hidden rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white">
-        <div class="w-full bg-gradient-to-br from-blue-50 via-white to-blue-50 p-1 md:p-2 lg:p-3 flex items-center justify-center" style="aspect-ratio: 1000/422;">
+      <div class="relative mb-2 overflow-hidden rounded-lg md:rounded-xl bg-transparent transition-all">
+        <div class="w-full p-1 md:p-2 lg:p-3 flex items-center justify-center" style="aspect-ratio: 1000/422;">
           <!-- Static Turkey Map with City Markers -->
           <div class="relative w-full h-full max-w-5xl mx-auto" ref="mapContainerRef">
             <!-- Actual Turkey SVG Map from simplemaps.com - using img for proper alignment -->
@@ -73,12 +79,15 @@
       <div class="text-center px-4">
         <a
           href="/fabrika-konumlari"
-          class="inline-flex items-center gap-2 rounded-lg bg-[rgb(39,45,122)] px-4 md:px-6 py-2.5 md:py-3 text-xs md:text-sm font-semibold text-white transition-all hover:bg-[rgb(39,45,122)]/90 hover:shadow-lg active:scale-95"
+          class="inline-flex items-center gap-2 rounded-lg bg-[rgb(39,45,122)] px-4 md:px-6 py-2.5 md:py-3 text-xs md:text-sm font-semibold text-white transition-all hover:bg-[rgb(39,45,122)]/90 hover:shadow-glow active:scale-95 relative overflow-hidden group"
         >
-          <MapPin :size="16" class="md:w-[18px] md:h-[18px]" />
-          <span class="hidden sm:inline">Detaylı Harita Görünümü</span>
-          <span class="sm:hidden">Detaylı Harita</span>
-          <ArrowRight :size="14" class="md:w-4 md:h-4" />
+          <span class="relative z-10 flex items-center gap-2">
+            <MapPin :size="16" class="md:w-[18px] md:h-[18px]" />
+            <span class="hidden sm:inline">Detaylı Harita Görünümü</span>
+            <span class="sm:hidden">Detaylı Harita</span>
+            <ArrowRight :size="14" class="md:w-4 md:h-4 transition-transform group-hover:translate-x-1" />
+          </span>
+          <span class="absolute inset-0 bg-gradient-to-r from-[rgb(59,70,180)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
         </a>
       </div>
     </div>
@@ -113,6 +122,7 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { Teleport } from 'vue';
 import { MapPin, ArrowRight, Factory } from 'lucide-vue-next';
+import { cities as cityData, factories as factoryData, type FactoryCity, type FactoryItem } from '../data/factories';
 
 const hoveredCity = ref<string | null>(null);
 const mapContainerRef = ref<HTMLElement | null>(null);
@@ -166,490 +176,48 @@ onMounted(() => {
 
 const getCityName = (cityId: string | null): string => {
   if (!cityId) return '';
-  const city = cities.find(c => c.id === cityId);
+  const city = cities.value.find(c => c.id === cityId);
   return city?.name || '';
 };
 
+const getCityFactories = (cityId: string | null): string[] => {
+  if (!cityId) return [];
+  return factoryData.filter(f => f.cityId === cityId).map(f => f.name);
+};
+
 // Check if city is in the crowded northwest region (Istanbul area)
-const isCrowdedRegion = (city: City): boolean => {
+const isCrowdedRegion = (city: FactoryCity): boolean => {
   // Cities in northwest region that are close together
   const crowdedIds = ['TR34', 'TR41', 'TR16', 'TR54', 'TR59', 'TR26'];
   return crowdedIds.includes(city.id);
 };
 
-const getCityRadius = (city: City): number => {
+const getCityRadius = (city: FactoryCity): number => {
   if (!isMobile.value) return city.radius;
   // Reduce scaling for crowded region on mobile to prevent overlap
   const scale = isCrowdedRegion(city) ? 1.3 : 1.8;
   return city.radius * scale;
 };
 
-const getCityFontSize = (city: City): number => {
+const getCityFontSize = (city: FactoryCity): number => {
   if (!isMobile.value) return city.fontSize;
   // Reduce scaling for crowded region on mobile to prevent overlap
   const scale = isCrowdedRegion(city) ? 1.3 : 1.8;
   return city.fontSize * scale;
 };
 
-interface City {
-  id: string;
-  name: string;
-  x: number;
-  y: number;
-  radius: number;
-  color: string;
-  opacity: number;
-  fontSize: number;
-  labelSize: number;
-  count: number;
-}
+type City = FactoryCity & { count: number };
 
-const cities: City[] = [
-  {
-    id: 'TR06',
-    name: 'Ankara',
-    x: 374.2,
-    y: 163.1,
-    radius: 16,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 12,
-    labelSize: 11,
-    count: 12
-  },
-  {
-    id: 'TR41',
-    name: 'Kocaeli',
-    x: 245.3,
-    y: 93.2,
-    radius: 14,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 11,
-    labelSize: 10,
-    count: 5
-  },
-  {
-    id: 'TR34',
-    name: 'İstanbul',
-    x: 199.3,
-    y: 81.8,
-    radius: 15,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 12,
-    labelSize: 11,
-    count: 4
-  },
-  {
-    id: 'TR19',
-    name: 'Çorum',
-    x: 471.6,
-    y: 120.2,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR07',
-    name: 'Antalya',
-    x: 260.9,
-    y: 341.5,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR33',
-    name: 'Mersin',
-    x: 432.7,
-    y: 353.6,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR38',
-    name: 'Kayseri',
-    x: 519.8,
-    y: 237.9,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR55',
-    name: 'Samsun',
-    x: 529.3,
-    y: 74,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR01',
-    name: 'Adana',
-    x: 511.6,
-    y: 315.2,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR27',
-    name: 'Gaziantep',
-    x: 604.7,
-    y: 330,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR45',
-    name: 'Manisa',
-    x: 175.1,
-    y: 230.6,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR59',
-    name: 'Tekirdağ',
-    x: 115.5,
-    y: 87.1,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 2
-  },
-  {
-    id: 'TR35',
-    name: 'İzmir',
-    x: 127.6,
-    y: 259,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR16',
-    name: 'Bursa',
-    x: 205.6,
-    y: 151.1,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR26',
-    name: 'Eskişehir',
-    x: 302.9,
-    y: 174.3,
-    radius: 14,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 11,
-    labelSize: 10,
-    count: 4
-  },
-  {
-    id: 'TR54',
-    name: 'Sakarya',
-    x: 274.8,
-    y: 107.5,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR80',
-    name: 'Osmaniye',
-    x: 550.1,
-    y: 322.8,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR15',
-    name: 'Burdur',
-    x: 247.3,
-    y: 305,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR71',
-    name: 'Kırıkkale',
-    x: 424.4,
-    y: 166.1,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR46',
-    name: 'Kahramanmaraş',
-    x: 580.1,
-    y: 277.2,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR58',
-    name: 'Sivas',
-    x: 600.3,
-    y: 177.5,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR50',
-    name: 'Nevşehir',
-    x: 473.8,
-    y: 226.7,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR25',
-    name: 'Erzurum',
-    x: 799.5,
-    y: 154,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR68',
-    name: 'Aksaray',
-    x: 434.1,
-    y: 252.8,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR61',
-    name: 'Trabzon',
-    x: 716.4,
-    y: 101,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR81',
-    name: 'Düzce',
-    x: 311.3,
-    y: 95.8,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  },
-  {
-    id: 'TR43',
-    name: 'Kütahya',
-    x: 231.8,
-    y: 194.5,
-    radius: 12,
-    color: '#1e40af',
-    opacity: 0.9,
-    fontSize: 10,
-    labelSize: 10,
-    count: 1
-  }
-];
-
-// Factory data for each city
-const factoryData: Record<string, string[]> = {
-  'TR34': [
-    'BONUS YALITIM - XPS & Bitümlü Membran İstanbul Üretim Tesisi',
-    'ENTEGRE - ÖMERLİ FABRİKA',
-    'FİXA - İstanbul Fabrika',
-    'KALDE - İstanbul Fabrika'
-  ],
-  'TR06': [
-    'ABS Alçı - ANKARA BALA FABRİKA',
-    'ABS Alçı - ANKARA BOZÜYÜK FABRİKA',
-    'AUSTROTHERM - Ankara Fabrika',
-    'DALSAN - ANKARA BALA TESİSLERİ',
-    'DALSAN - ANKARA KALEBOĞAZI TESİSLERİ',
-    'ENTEGRE - ANKARA FABRİKA',
-    'FİXA - Ankara Fabrika',
-    'KNAUF - Ahiboz Üretim Tesisi',
-    'PANELSAN - PANELSAN FABRİKA',
-    'TEPE - Merkez / Betopan Fabrika',
-    'TEPE - Tepepan Fabrika',
-    'WEBER - Ankara Fabrika'
-  ],
-  'TR43': [
-    'Aragonit Yapı Kimyasalları Merkez Fabrikası'
-  ],
-  'TR35': [
-    'WEBER - İZMİR FABRİKA'
-  ],
-  'TR16': [
-    'BOSTİK - İnegöl Fabrika'
-  ],
-  'TR41': [
-    'AUSTROTHERM - Merkez Ofis - Dilovası Fabrika',
-    'İZOCAM - Gebkim Foamboard, Izopor ve Tekiz Panel Üretim Tesisleri (Dilovası)',
-    'İZOCAM - Taşyünü Tesisi (Dilovası)',
-    'KNAUF - İzmit Üretim Tesisi',
-    'WEBER - Gebze Fabrika'
-  ],
-  'TR07': [
-    'Aragonit Yapı Kimyasalları Antalya Fabrikası',
-    'CUBO - ANTALYA MERKEZ FABRİKA GENEL MÜDÜRLÜK'
-  ],
-  'TR01': [
-    'FİXA - Adana Fabrika',
-    'WEBER - Adana Fabrika'
-  ],
-  'TR27': [
-    'AUSTROTHERM - Gaziantep Üretim Tesisi',
-    'WALLBOARD - Gaziantep Üretim Tesisi'
-  ],
-  'TR26': [
-    'KILIÇOĞLU - ESKİŞEHİR FABRİKA',
-    'MEGARON - ESKİŞEHİR FABRİKA',
-    'ODE - Eskişehir Üretim Tesisleri',
-    'İZOCAM - Elastomerik Kauçuk ve Polietilen Köpük Üretim Tesisi (Eskişehir)'
-  ],
-  'TR81': [
-    'MARMARA ÇİMENTO - DÜZCE FABRİKA'
-  ],
-  'TR33': [
-    'ABS ALÇI - TARSUS FABRİKA',
-    'İZOCAM - Camyünü ve Foamboard Üretim Tesisleri (Tarsus)'
-  ],
-  'TR38': [
-    'AUSTROTHERM - Kayseri Üretim Tesisi',
-    'İZOCAM - Taşyünü Tesisi (Kayseri)'
-  ],
-  'TR55': [
-    'ENTEGRE - SAMSUN FABRİKA',
-    'WEBER - Samsun Fabrika'
-  ],
-  'TR61': [
-    'AUSTROTHERM - Trabzon Üretim Tesisi'
-  ],
-  'TR45': [
-    'AUSTROTHERM - Turgutlu Fabrika',
-    'DALSAN - TURGUTLU TESİSLERİ'
-  ],
-  'TR54': [
-    'BONUS YALITIM - Sakarya Taş Yünü Üretim Tesisi'
-  ],
-  'TR59': [
-    'BOSTİK - Çorlu Fabrika',
-    'ODE Tekirdağ Üretim Tesisleri'
-  ],
-  'TR80': [
-    'BTG GAZBETON - BETONG YAPI OSMANİYE FABRİKA'
-  ],
-  'TR15': [
-    'ENTEGRE - BURDUR FABRİKA'
-  ],
-  'TR71': [
-    'GEYİK BİMS KIRIKKALE FABRİKA'
-  ],
-  'TR46': [
-    'KÇS Kahramanmaraş Fabrika'
-  ],
-  'TR58': [
-    'ABS Alçı - SİVAS FABRİKA'
-  ],
-  'TR19': [
-    'ÖZKENT ÇORUM TUĞLA KİREMİT FABRİKASI',
-    'SELİN TUĞLA'
-  ],
-  'TR50': [
-    'AGT BİMS NEVŞEHİR FABRİKA'
-  ],
-  'TR25': [
-    'ABS ALÇI - AŞKALE FABRİKA'
-  ],
-  'TR68': [
-    'Aragonit Yapı Kimyasalları Aksaray Fabrikası'
-  ]
-};
-
-const getCityFactories = (cityId: string): string[] => {
-  if (!cityId) return [];
-  return factoryData[cityId] || [];
-};
+// Use imported cityData and factoryData from YAML
+// Only show cities that have factories (count > 0)
+const cities = computed<City[]>(() => {
+  return cityData
+    .map(city => ({
+      ...city,
+      count: factoryData.filter(f => f.cityId === city.id).length
+    }))
+    .filter(city => city.count > 0);
+});
 
 const handleMarkerEnter = (cityId: string) => {
   // Only handle hover on desktop
@@ -714,7 +282,7 @@ const getTooltipStyle = computed(() => {
   
   if (!hoveredCity.value || !mapContainerRef.value) return { display: 'none' };
   
-  const city = cities.find(c => c.id === hoveredCity.value);
+  const city = cities.value.find(c => c.id === hoveredCity.value);
   if (!city) return { display: 'none' };
   
   // Get the map container's bounding box (updates on scroll)

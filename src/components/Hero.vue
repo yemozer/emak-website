@@ -12,16 +12,23 @@
     </video>
     
     <!-- Enhanced Gradient Overlay with better contrast -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[rgb(39,45,122)]/90 via-[rgb(39,45,122)]/80 to-[rgb(39,45,122)]/90"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[rgb(39,45,122)]/85 via-[rgb(39,45,122)]/75 to-[rgb(39,45,122)]/85"></div>
+    
+    <!-- Animated gradient overlay for depth -->
+    <div class="absolute inset-0 bg-animated-gradient opacity-15"></div>
     
     <!-- Additional overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="absolute inset-0 bg-black/15"></div>
+    
+    <!-- Decorative gradient orbs -->
+    <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-[rgb(59,70,180)]/20 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-[rgb(79,90,200)]/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
     
     <!-- Content -->
     <div class="relative z-10 flex h-full items-center justify-center pt-16 md:pt-20">
       <div class="container mx-auto px-4 text-center text-white">
         <h1 class="mb-4 md:mb-6 animate-fade-in-up text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight" style="animation-delay: 0.1s">
-          <span class="block drop-shadow-2xl text-white">Emak Yapı</span>
+          <span class="block drop-shadow-2xl text-white bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent">Emak Yapı</span>
         </h1>
         <p class="mb-3 md:mb-4 animate-fade-in-up text-lg sm:text-xl md:text-2xl lg:text-3xl font-light text-white" style="animation-delay: 0.2s">
           Türkiye'nin Yapı Malzemeleri Mağazası
@@ -35,18 +42,24 @@
             href="https://katalog.emakyapi.revleno.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="hero-cta-button group flex items-center justify-center gap-2 rounded-lg md:rounded-xl bg-white px-6 md:px-10 py-3 md:py-4 text-base md:text-lg font-semibold text-[rgb(39,45,122)] shadow-2xl hover:bg-white/95 hover:shadow-3xl active:scale-95 w-full sm:w-auto"
+            class="hero-cta-button group flex items-center justify-center gap-2 rounded-lg md:rounded-xl bg-white px-6 md:px-10 py-3 md:py-4 text-base md:text-lg font-semibold text-[rgb(39,45,122)] shadow-2xl hover:shadow-glow-lg hover:bg-white/95 active:scale-95 w-full sm:w-auto relative overflow-hidden"
           >
-            Ürün Kataloğu
-            <ArrowRight :size="18" class="md:w-5 md:h-5 hero-cta-arrow transition-transform duration-500 ease-in-out group-hover:translate-x-1" />
+            <span class="relative z-10 flex items-center gap-2">
+              Ürün Kataloğu
+              <ArrowRight :size="18" class="md:w-5 md:h-5 hero-cta-arrow transition-transform duration-500 ease-in-out group-hover:translate-x-1" />
+            </span>
+            <span class="absolute inset-0 bg-gradient-to-r from-[rgb(39,45,122)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </a>
           <a
             href="/iletisim"
-            class="group flex items-center justify-center gap-2 rounded-lg md:rounded-xl border-2 border-white bg-white/15 px-6 md:px-10 py-3 md:py-4 text-base md:text-lg font-semibold text-white backdrop-blur-md transition-all hover:bg-white/25 hover:border-white/80 hover:shadow-xl active:scale-95 w-full sm:w-auto"
+            class="group flex items-center justify-center gap-2 rounded-lg md:rounded-xl border-2 border-white/60 bg-white/10 px-6 md:px-10 py-3 md:py-4 text-base md:text-lg font-semibold text-white backdrop-blur-md transition-all hover:bg-white/20 hover:border-white hover:shadow-glow active:scale-95 w-full sm:w-auto relative overflow-hidden"
           >
-            <Phone :size="18" class="md:w-5 md:h-5" />
-            <span class="hidden sm:inline">Hemen İletişime Geçin</span>
-            <span class="sm:hidden">İletişim</span>
+            <span class="relative z-10 flex items-center gap-2">
+              <Phone :size="18" class="md:w-5 md:h-5" />
+              <span class="hidden sm:inline">Hemen İletişime Geçin</span>
+              <span class="sm:hidden">İletişim</span>
+            </span>
+            <span class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </a>
         </div>
       </div>

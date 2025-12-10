@@ -25,8 +25,10 @@
         <div class="hidden lg:flex lg:items-center lg:gap-8 absolute left-1/2 transform -translate-x-1/2">
           <template v-for="item in navItems" :key="item.href">
             <a
-              v-if="!isCurrentPage(item.href)"
+              v-if="item.external || !isCurrentPage(item.href)"
               :href="item.href"
+              :target="item.external ? '_blank' : undefined"
+              :rel="item.external ? 'noopener noreferrer' : undefined"
               class="group relative text-sm font-medium transition-colors"
               :class="shouldShowTransparent && !scrolled
                 ? 'text-white hover:text-white/80' 
@@ -126,8 +128,10 @@
         <div class="container mx-auto flex flex-col gap-1 px-6 py-4">
           <template v-for="item in navItems" :key="item.href">
             <a
-              v-if="!isCurrentPage(item.href)"
+              v-if="item.external || !isCurrentPage(item.href)"
               :href="item.href"
+              :target="item.external ? '_blank' : undefined"
+              :rel="item.external ? 'noopener noreferrer' : undefined"
               @click="mobileMenuOpen = false"
               class="rounded-lg px-4 py-3 text-base font-medium text-[rgb(39,45,122)] transition-colors hover:bg-[rgb(39,45,122)]/10"
             >
@@ -170,8 +174,16 @@ const mobileMenuOpen = ref(false);
 const shouldShowTransparent = ref(false);
 const currentPath = ref('');
 
-const navItems = [
+interface NavItem {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+const navItems: NavItem[] = [
   { label: 'Hakkımızda', href: '/hakkimizda' },
+  { label: 'Hesap Tabloları', href: '/hesap-tablolari' },
+  { label: 'Kariyer', href: 'https://www.kariyer.net/firma-profil/emak-yapi-malzemeleri-160860-85579', external: true },
   { label: 'İletişim', href: '/iletisim' },
 ];
 

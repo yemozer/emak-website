@@ -1,6 +1,14 @@
 <template>
   <section class="relative overflow-hidden py-12 md:py-20 lg:py-28 bg-gradient-primary">
+    <!-- Animated gradient background -->
+    <div class="absolute inset-0 bg-animated-gradient opacity-80"></div>
+    
+    <!-- Grid pattern overlay -->
     <div class="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,white,transparent)]"></div>
+    
+    <!-- Decorative orbs -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-float" style="animation-delay: 3s;"></div>
     <div class="container relative mx-auto px-4 lg:px-8">
       <div class="mx-auto max-w-4xl text-center text-white">
         <h2 class="mb-4 md:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight drop-shadow-lg px-4">
@@ -13,17 +21,23 @@
         <div class="flex flex-col items-center justify-center gap-3 sm:gap-4 md:gap-5 sm:flex-row px-4">
           <a
             href="/iletisim"
-            class="cta-button group flex items-center justify-center gap-2 rounded-lg md:rounded-xl bg-white px-6 md:px-10 py-3 md:py-5 text-base md:text-lg font-semibold text-[rgb(39,45,122)] shadow-2xl hover:bg-white/95 hover:shadow-3xl active:scale-95 w-full sm:w-auto"
+            class="cta-button group relative flex items-center justify-center gap-2 rounded-lg md:rounded-xl bg-white px-6 md:px-10 py-3 md:py-5 text-base md:text-lg font-semibold text-[rgb(39,45,122)] shadow-2xl hover:shadow-glow-lg hover:bg-white/95 active:scale-95 w-full sm:w-auto overflow-hidden"
           >
-            Teklif Alın
-            <ArrowRight :size="18" class="md:w-5 md:h-5 cta-button-arrow transition-transform duration-500 ease-in-out group-hover:translate-x-1" />
+            <span class="relative z-10 flex items-center gap-2">
+              Teklif Alın
+              <ArrowRight :size="18" class="md:w-5 md:h-5 cta-button-arrow transition-transform duration-500 ease-in-out group-hover:translate-x-1" />
+            </span>
+            <span class="absolute inset-0 bg-gradient-to-r from-[rgb(39,45,122)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </a>
           <a
             href="tel:+903123123625"
-            class="group flex items-center justify-center gap-2 rounded-lg md:rounded-xl border-2 border-white/40 bg-white/10 px-6 md:px-10 py-3 md:py-5 text-base md:text-lg font-semibold text-white backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/60 hover:shadow-xl active:scale-95 w-full sm:w-auto"
+            class="group relative flex items-center justify-center gap-2 rounded-lg md:rounded-xl border-2 border-white/60 bg-white/10 px-6 md:px-10 py-3 md:py-5 text-base md:text-lg font-semibold text-white backdrop-blur-md transition-all hover:bg-white/20 hover:border-white hover:shadow-glow active:scale-95 w-full sm:w-auto overflow-hidden"
           >
-            <Phone :size="18" class="md:w-5 md:h-5" />
-            Hemen Arayın
+            <span class="relative z-10 flex items-center gap-2">
+              <Phone :size="18" class="md:w-5 md:h-5" />
+              Hemen Arayın
+            </span>
+            <span class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </a>
         </div>
       </div>

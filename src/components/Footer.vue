@@ -82,6 +82,16 @@
                 İletişim
               </a>
             </li>
+            <li>
+              <a 
+                href="https://www.kariyer.net/firma-profil/emak-yapi-malzemeleri-160860-85579" 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]"
+              >
+                Kariyer
+              </a>
+            </li>
           </ul>
         </div>
         

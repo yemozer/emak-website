@@ -225,11 +225,12 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
+import { markers as markersData, factoryPoints as factoryPointsData, type FactoryMarker, type FactoryPoint } from '../data/factories';
 
 const mapInitialized = ref(false);
 const provinceFilter = ref('');
 const showSidebar = ref(false);
-const selectedCity = ref<MarkerData | null>(null);
+const selectedCity = ref<FactoryMarker | null>(null);
 let map: any = null;
 let maplibregl: any = null;
 let Supercluster: any = null;
@@ -237,157 +238,10 @@ let cluster: any = null;
 const markerRefs = new Map<string, any>();
 const popupRefs = new Map<string, any>();
 const allMarkers = new Map<string, any>();
+const allFactoryPoints = new Map<string, FactoryPoint>();
 
-type ProvinceCode =
-  | 'TR06' | 'TR34' | 'TR35' | 'TR16' | 'TR41' | 'TR07' | 'TR01' | 'TR27' | 'TR45' | 'TR59'
-  | 'TR26' | 'TR54' | 'TR33' | 'TR38' | 'TR55' | 'TR19' | 'TR80' | 'TR15' | 'TR71' | 'TR46'
-  | 'TR58' | 'TR50' | 'TR81' | 'TR43' | 'TR25' | 'TR68' | 'TR61';
-
-// Province meta (approximate city center coordinates)
-const provinceMeta: Record<ProvinceCode, { name: string; lat: number; lng: number }> = {
-  TR06: { name: 'Ankara', lat: 39.9334, lng: 32.8597 },
-  TR34: { name: 'İstanbul', lat: 41.0082, lng: 28.9784 },
-  TR35: { name: 'İzmir', lat: 38.4237, lng: 27.1428 },
-  TR16: { name: 'Bursa', lat: 40.1826, lng: 29.0665 },
-  TR41: { name: 'Kocaeli', lat: 40.8533, lng: 29.8815 },
-  TR07: { name: 'Antalya', lat: 36.8969, lng: 30.7133 },
-  TR01: { name: 'Adana', lat: 37.0000, lng: 35.3213 },
-  TR27: { name: 'Gaziantep', lat: 37.0662, lng: 37.3833 },
-  TR45: { name: 'Manisa', lat: 38.6191, lng: 27.4289 },
-  TR59: { name: 'Tekirdağ', lat: 40.9780, lng: 27.5110 },
-  TR26: { name: 'Eskişehir', lat: 39.7667, lng: 30.5256 },
-  TR54: { name: 'Sakarya', lat: 40.7569, lng: 30.3789 },
-  TR33: { name: 'Mersin', lat: 36.7990, lng: 34.6300 },
-  TR38: { name: 'Kayseri', lat: 38.7322, lng: 35.4853 },
-  TR55: { name: 'Samsun', lat: 41.2867, lng: 36.3300 },
-  TR19: { name: 'Çorum', lat: 40.5489, lng: 34.9533 },
-  TR80: { name: 'Osmaniye', lat: 37.0681, lng: 36.2616 },
-  TR15: { name: 'Burdur', lat: 37.7203, lng: 30.2900 },
-  TR71: { name: 'Kırıkkale', lat: 39.8468, lng: 33.5153 },
-  TR46: { name: 'Kahramanmaraş', lat: 37.5730, lng: 36.9370 },
-  TR58: { name: 'Sivas', lat: 39.7485, lng: 37.0166 },
-  TR50: { name: 'Nevşehir', lat: 38.6247, lng: 34.7141 },
-  TR81: { name: 'Düzce', lat: 40.8438, lng: 31.1565 },
-  TR43: { name: 'Kütahya', lat: 39.4242, lng: 29.9833 },
-  TR25: { name: 'Erzurum', lat: 39.9043, lng: 41.2679 },
-  TR68: { name: 'Aksaray', lat: 38.3687, lng: 34.0369 },
-  TR61: { name: 'Trabzon', lat: 41.0053, lng: 39.7223 },
-};
-
-// Real factory data by province (same source as the static map)
-const factoryData: Record<ProvinceCode, string[]> = {
-  TR34: [
-    'BONUS YALITIM - XPS & Bitümlü Membran İstanbul Üretim Tesisi',
-    'ENTEGRE - ÖMERLİ FABRİKA',
-    'FİXA - İstanbul Fabrika',
-    'KALDE - İstanbul Fabrika',
-  ],
-  TR06: [
-    'ABS Alçı - ANKARA BALA FABRİKA',
-    'ABS Alçı - ANKARA BOZÜYÜK FABRİKA',
-    'AUSTROTHERM - Ankara Fabrika',
-    'DALSAN - ANKARA BALA TESİSLERİ',
-    'DALSAN - ANKARA KALEBOĞAZI TESİSLERİ',
-    'ENTEGRE - ANKARA FABRİKA',
-    'FİXA - Ankara Fabrika',
-    'KNAUF - Ahiboz Üretim Tesisi',
-    'PANELSAN - PANELSAN FABRİKA',
-    'TEPE - Merkez / Betopan Fabrika',
-    'TEPE - Tepepan Fabrika',
-    'WEBER - Ankara Fabrika',
-  ],
-  TR43: ['Aragonit Yapı Kimyasalları Merkez Fabrikası'],
-  TR35: ['WEBER - İZMİR FABRİKA'],
-  TR16: ['BOSTİK - İnegöl Fabrika'],
-  TR41: [
-    'AUSTROTHERM - Merkez Ofis - Dilovası Fabrika',
-    'İZOCAM - Gebkim Foamboard, Izopor ve Tekiz Panel Üretim Tesisleri (Dilovası)',
-    'İZOCAM - Taşyünü Tesisi (Dilovası)',
-    'KNAUF - İzmit Üretim Tesisi',
-    'WEBER - Gebze Fabrika',
-  ],
-  TR07: [
-    'Aragonit Yapı Kimyasalları Antalya Fabrikası',
-    'CUBO - ANTALYA MERKEZ FABRİKA GENEL MÜDÜRLÜK',
-  ],
-  TR01: [
-    'FİXA - Adana Fabrika',
-    'WEBER - Adana Fabrika',
-  ],
-  TR27: [
-    'AUSTROTHERM - Gaziantep Üretim Tesisi',
-    'WALLBOARD - Gaziantep Üretim Tesisi',
-  ],
-  TR26: [
-    'KILIÇOĞLU - ESKİŞEHİR FABRİKA',
-    'MEGARON - ESKİŞEHİR FABRİKA',
-    'ODE - Eskişehir Üretim Tesisleri',
-    'İZOCAM - Elastomerik Kauçuk ve Polietilen Köpük Üretim Tesisi (Eskişehir)',
-  ],
-  TR81: ['MARMARA ÇİMENTO - DÜZCE FABRİKA'],
-  TR33: [
-    'ABS ALÇI - TARSUS FABRİKA',
-    'İZOCAM - Camyünü ve Foamboard Üretim Tesisleri (Tarsus)',
-  ],
-  TR38: [
-    'AUSTROTHERM - Kayseri Üretim Tesisi',
-    'İZOCAM - Taşyünü Tesisi (Kayseri)',
-  ],
-  TR55: [
-    'ENTEGRE - SAMSUN FABRİKA',
-    'WEBER - Samsun Fabrika',
-  ],
-  TR61: ['AUSTROTHERM - Trabzon Üretim Tesisi'],
-  TR45: [
-    'AUSTROTHERM - Turgutlu Fabrika',
-    'DALSAN - TURGUTLU TESİSLERİ',
-  ],
-  TR54: ['BONUS YALITIM - Sakarya Taş Yünü Üretim Tesisi'],
-  TR59: [
-    'BOSTİK - Çorlu Fabrika',
-    'ODE Tekirdağ Üretim Tesisleri',
-  ],
-  TR80: ['BTG GAZBETON - BETONG YAPI OSMANİYE FABRİKA'],
-  TR15: ['ENTEGRE - BURDUR FABRİKA'],
-  TR71: ['GEYİK BİMS KIRIKKALE FABRİKA'],
-  TR46: ['KÇS Kahramanmaraş Fabrika'],
-  TR58: ['ABS Alçı - SİVAS FABRİKA'],
-  TR19: [
-    'ÖZKENT ÇORUM TUĞLA KİREMİT FABRİKASI',
-    'SELİN TUĞLA',
-  ],
-  TR50: ['AGT BİMS NEVŞEHİR FABRİKA'],
-  TR25: ['ABS ALÇI - AŞKALE FABRİKA'],
-  TR68: ['Aragonit Yapı Kimyasalları Aksaray Fabrikası'],
-};
-
-type MarkerData = {
-  code: ProvinceCode;
-  name: string;
-  lat: number;
-  lng: number;
-  count: number;
-  factories: string[];
-};
-
-const markers = computed<MarkerData[]>(() => {
-  const list = Object.entries(factoryData)
-    .map(([code, factories]) => {
-      const meta = provinceMeta[code as ProvinceCode];
-      if (!meta) return null;
-      return {
-        code: code as ProvinceCode,
-        name: meta.name,
-        lat: meta.lat,
-        lng: meta.lng,
-        count: factories.length,
-        factories,
-      } as MarkerData;
-    })
-    .filter((m): m is MarkerData => m !== null);
-
-  return list.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
-});
+const markers = computed<FactoryMarker[]>(() => markersData);
+const factoryPoints = computed<FactoryPoint[]>(() => factoryPointsData);
 
 const filteredMarkers = computed(() => {
   const term = provinceFilter.value.trim().toLowerCase();
@@ -417,7 +271,7 @@ const getFontSize = (count: number): number => {
   return 10;
 };
 
-const focusProvince = (m: MarkerData) => {
+const focusProvince = (m: FactoryMarker) => {
   if (!map) return;
   // Set selected city to show detail view
   selectedCity.value = m;
@@ -457,7 +311,7 @@ const goBack = () => {
   }
 };
 
-const createMarkerElement = (data: MarkerData | null, isCluster: boolean = false, pointCount: number = 0): HTMLElement => {
+const createMarkerElement = (data: FactoryMarker | null, isCluster: boolean = false, pointCount: number = 0): HTMLElement => {
   const el = document.createElement('div');
   el.className = 'custom-marker';
   
@@ -529,14 +383,11 @@ const updateMarkers = () => {
 
     if (properties.cluster) {
       // This is a cluster
-      // Get all leaves (cities) in this cluster
-      const clusterMarkers = cluster.getLeaves(properties.cluster_id, Infinity);
+      // Get all leaves (factories) in this cluster
+      const clusterFactories = cluster.getLeaves(properties.cluster_id, Infinity);
       
       // Calculate total factory count in this cluster
-      const totalFactories = clusterMarkers.reduce((sum: number, leaf: any) => {
-        const markerData = allMarkers.get(leaf.properties.code);
-        return sum + (markerData?.count || 0);
-      }, 0);
+      const totalFactories = clusterFactories.length;
       
       // Use total factory count for the cluster marker display
       const el = createMarkerElement(null, true, totalFactories);
@@ -551,22 +402,22 @@ const updateMarkers = () => {
       const clusterId = `cluster-${properties.cluster_id}`;
       markerRefs.set(clusterId, marker);
       
-      // Group by city for clearer listing
-      const cityMap = new Map<string, { name: string; count: number; factories: string[] }>();
-      clusterMarkers.forEach((leaf: any) => {
-        const markerData = allMarkers.get(leaf.properties.code);
-        if (!markerData) return;
-        if (!cityMap.has(leaf.properties.code)) {
-          cityMap.set(leaf.properties.code, {
-            name: markerData.name,
-            count: markerData.count,
-            factories: markerData.factories,
+      // Group factories by city for clearer listing
+      const cityMap = new Map<string, { name: string; factories: FactoryPoint[] }>();
+      clusterFactories.forEach((leaf: any) => {
+        const factoryPoint = allFactoryPoints.get(leaf.properties.id);
+        if (!factoryPoint) return;
+        if (!cityMap.has(factoryPoint.cityId)) {
+          cityMap.set(factoryPoint.cityId, {
+            name: factoryPoint.cityName,
+            factories: [],
           });
         }
+        cityMap.get(factoryPoint.cityId)!.factories.push(factoryPoint);
       });
 
       const cityGroups = Array.from(cityMap.values()).sort(
-        (a, b) => b.count - a.count || a.name.localeCompare(b.name),
+        (a, b) => b.factories.length - a.factories.length || a.name.localeCompare(b.name),
       );
 
       const cityCount = cityGroups.length;
@@ -576,13 +427,13 @@ const updateMarkers = () => {
           <div class="rounded-lg border border-gray-200 bg-gray-50 p-3 mb-2 last:mb-0">
             <div class="flex items-center justify-between mb-2">
               <h4 class="text-sm font-semibold text-[rgb(39,45,122)]">${city.name}</h4>
-              <span class="rounded-full bg-[rgb(39,45,122)]/10 px-2 py-0.5 text-xs font-semibold text-[rgb(39,45,122)]">${city.count} fab.</span>
+              <span class="rounded-full bg-[rgb(39,45,122)]/10 px-2 py-0.5 text-xs font-semibold text-[rgb(39,45,122)]">${city.factories.length} fab.</span>
             </div>
             <ul class="space-y-1.5">
               ${city.factories
                 .map(
                   (f) =>
-                    `<li class="flex items-start gap-2 text-xs text-gray-700"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-[rgb(39,45,122)] shrink-0"></span><span class="leading-relaxed">${f}</span></li>`,
+                    `<li class="flex items-start gap-2 text-xs text-gray-700"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-[rgb(39,45,122)] shrink-0"></span><span class="leading-relaxed">${f.name}</span></li>`,
                 )
                 .join('')}
             </ul>
@@ -788,12 +639,13 @@ const updateMarkers = () => {
         observer.observe(popupEl, { attributes: true, attributeFilter: ['style', 'class'] });
       }
     } else {
-      // This is a single point
-      const code = properties.code as ProvinceCode;
-      const markerData = allMarkers.get(code);
-      if (!markerData) return;
+      // This is a single factory point
+      const factoryId = properties.id as string;
+      const factoryPoint = allFactoryPoints.get(factoryId);
+      if (!factoryPoint) return;
 
-      const el = createMarkerElement(markerData);
+      // For single factory, show a small marker (count = 1)
+      const el = createMarkerElement({ count: 1, name: factoryPoint.cityName } as FactoryMarker);
       const marker = new maplibregl.Marker({
         element: el,
         anchor: 'center',
@@ -801,26 +653,22 @@ const updateMarkers = () => {
         .setLngLat([lng, lat])
         .addTo(map);
 
-      markerRefs.set(code, marker);
+      markerRefs.set(factoryId, marker);
 
-      // Create popup content
-      const factoriesList = markerData.factories
-        .map(
-          (f: string) =>
-            `<li class="flex items-start gap-2 py-1.5 border-b border-gray-100 last:border-0"><span class="mt-1.5 h-2 w-2 rounded-full bg-[rgb(39,45,122)] shrink-0"></span><span class="text-sm text-gray-700 leading-relaxed">${f}</span></li>`,
-        )
-        .join('');
+      // Create popup content for single factory
+      const locationInfo = factoryPoint.isExact 
+        ? `<p class="text-xs text-gray-500 mt-1">📍 Konum: Tam koordinat</p>`
+        : `<p class="text-xs text-gray-500 mt-1">📍 Konum: ${factoryPoint.cityName} merkezi</p>`;
 
       const popupContent = `
         <div class="p-4 max-w-sm">
           <div class="flex items-start justify-between gap-3 mb-3 pb-2 border-b border-gray-200">
-            <div>
-              <h3 class="text-base font-semibold text-[rgb(39,45,122)] mb-1">${markerData.name}</h3>
-              <p class="text-xs text-gray-600">Toplam <strong class="text-[rgb(39,45,122)]">${markerData.count}</strong> fabrika</p>
+            <div class="flex-1">
+              <h3 class="text-base font-semibold text-[rgb(39,45,122)] mb-1">${factoryPoint.name}</h3>
+              <p class="text-xs text-gray-600">${factoryPoint.cityName}</p>
+              ${locationInfo}
             </div>
-            <span class="rounded-full bg-[rgb(39,45,122)]/10 px-2 py-1 text-[10px] font-semibold text-[rgb(39,45,122)] whitespace-nowrap">${markerData.count} fab.</span>
           </div>
-          <ul class="max-h-64 overflow-y-auto pr-1">${factoriesList}</ul>
         </div>
       `;
 
@@ -830,9 +678,14 @@ const updateMarkers = () => {
         closeOnClick: false,
       }).setHTML(popupContent);
 
-      popupRefs.set(code, popup);
+      popupRefs.set(factoryId, popup);
 
       el.addEventListener('click', () => {
+        // When clicking a factory, focus on its city in the sidebar
+        const cityMarker = markers.value.find(m => m.code === factoryPoint.cityId);
+        if (cityMarker) {
+          focusProvince(cityMarker);
+        }
         if (popup.isOpen()) {
           popup.remove();
         } else {
@@ -1023,21 +876,29 @@ onMounted(async () => {
 
   if (!maplibregl || !Supercluster) return;
 
-  // Store all marker data
+  // Store all marker data (for city-level grouping)
   markers.value.forEach((data) => {
     allMarkers.set(data.code, data);
   });
 
-  // Initialize cluster
-  const points = markers.value.map((data) => ({
+  // Store all factory points (for individual factory markers)
+  factoryPoints.value.forEach((point) => {
+    allFactoryPoints.set(point.id, point);
+  });
+
+  // Initialize cluster with factory points (individual factories with exact or city coordinates)
+  const points = factoryPoints.value.map((point) => ({
     type: 'Feature' as const,
     properties: {
-      code: data.code,
-      count: data.count,
+      id: point.id,
+      name: point.name,
+      cityId: point.cityId,
+      cityName: point.cityName,
+      isExact: point.isExact,
     },
     geometry: {
       type: 'Point' as const,
-      coordinates: [data.lng, data.lat],
+      coordinates: [point.lng, point.lat],
     },
   }));
 
