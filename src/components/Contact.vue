@@ -109,89 +109,16 @@
             </div>
           </div>
           
-          <!-- Contact Form -->
-          <div class="rounded-xl md:rounded-2xl border border-[rgb(178,178,178)]/20 bg-white p-6 md:p-8 lg:p-10 shadow-lg">
-            <h3 class="mb-6 md:mb-8 text-2xl md:text-3xl font-semibold text-[rgb(39,45,122)]">Mesaj Gönderin</h3>
-            <form @submit.prevent="handleSubmit" class="space-y-4 md:space-y-6">
-              <div>
-                <label for="name" class="mb-1.5 md:mb-2 block text-xs md:text-sm font-medium text-[rgb(39,45,122)]">
-                  Ad Soyad *
-                </label>
-                <input
-                  id="name"
-                  v-model="form.name"
-                  type="text"
-                  required
-                  class="w-full rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/30 bg-white px-4 md:px-5 py-2.5 md:py-3.5 text-sm ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(39,45,122)] focus-visible:ring-offset-2"
-                  placeholder="Adınız ve soyadınız"
-                />
-              </div>
-              <div class="grid gap-4 md:gap-6 md:grid-cols-2">
-                <div>
-                  <label for="email" class="mb-1.5 md:mb-2 block text-xs md:text-sm font-medium text-[rgb(39,45,122)]">
-                    E-posta *
-                  </label>
-                  <input
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    required
-                    class="w-full rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/30 bg-white px-4 md:px-5 py-2.5 md:py-3.5 text-sm ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(39,45,122)] focus-visible:ring-offset-2"
-                    placeholder="ornek@email.com"
-                  />
-                </div>
-                <div>
-                  <label for="phone" class="mb-1.5 md:mb-2 block text-xs md:text-sm font-medium text-[rgb(39,45,122)]">
-                    Telefon
-                  </label>
-                  <input
-                    id="phone"
-                    v-model="form.phone"
-                    type="tel"
-                    class="w-full rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/30 bg-white px-4 md:px-5 py-2.5 md:py-3.5 text-sm ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(39,45,122)] focus-visible:ring-offset-2"
-                    placeholder="+90 (XXX) XXX XX XX"
-                  />
-                </div>
-              </div>
-              <div>
-                <label for="subject" class="mb-1.5 md:mb-2 block text-xs md:text-sm font-medium text-[rgb(39,45,122)]">
-                  Konu
-                </label>
-                <input
-                  id="subject"
-                  v-model="form.subject"
-                  type="text"
-                  class="w-full rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/30 bg-white px-4 md:px-5 py-2.5 md:py-3.5 text-sm ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(39,45,122)] focus-visible:ring-offset-2"
-                  placeholder="Mesajınızın konusu"
-                />
-              </div>
-              <div>
-                <label for="message" class="mb-1.5 md:mb-2 block text-xs md:text-sm font-medium text-[rgb(39,45,122)]">
-                  Mesaj *
-                </label>
-                <textarea
-                  id="message"
-                  v-model="form.message"
-                  required
-                  rows="5"
-                  class="w-full rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/30 bg-white px-4 md:px-5 py-2.5 md:py-3.5 text-sm ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(39,45,122)] focus-visible:ring-offset-2"
-                  placeholder="Mesajınızı buraya yazın..."
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                :disabled="isSubmitting"
-                class="w-full rounded-lg md:rounded-xl bg-[rgb(39,45,122)] px-5 md:px-6 py-3 md:py-4 text-sm md:text-base font-semibold text-white shadow-lg transition-all hover:bg-[rgb(39,45,122)]/90 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <span v-if="!isSubmitting" class="flex items-center justify-center gap-2">
-                  Mesaj Gönder
-                  <Send :size="16" class="md:w-[18px] md:h-[18px]" />
-                </span>
-                <span v-else class="flex items-center justify-center gap-2">
-                  Gönderiliyor...
-                </span>
-              </button>
-            </form>
+          <!-- Map Section -->
+          <div class="h-[400px] md:h-[500px] lg:h-full min-h-[450px] rounded-xl md:rounded-2xl border border-[rgb(178,178,178)]/20 bg-white p-2 shadow-lg overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d510.15175!2d32.7526497!3d39.9562952!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d349ad763cec9f%3A0xb83d86d01a9e913!2sEMAK%20YAPI!5e0!3m2!1str!2str!4v1705575900000!5m2!1str!2str"
+              class="w-full h-full rounded-lg md:rounded-xl"
+              style="border:0;"
+              :allowfullscreen="true"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </div>
@@ -200,35 +127,5 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Linkedin, Send } from 'lucide-vue-next';
-
-const form = ref({
-  name: '',
-  email: '',
-  phone: '',
-  subject: '',
-  message: '',
-});
-
-const isSubmitting = ref(false);
-
-const handleSubmit = async () => {
-  isSubmitting.value = true;
-  
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  alert('Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.');
-  
-  form.value = {
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  };
-  
-  isSubmitting.value = false;
-};
+import { MapPin, Phone, Mail, Instagram, Linkedin, Facebook } from 'lucide-vue-next';
 </script>
