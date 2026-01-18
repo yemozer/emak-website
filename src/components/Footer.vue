@@ -68,6 +68,11 @@
               </a>
             </li>
             <li>
+              <a href="/dokumanlar" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
+                Dokümanlar
+              </a>
+            </li>
+            <li>
               <a href="/#urunler" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
                 Ürünler
               </a>
@@ -125,14 +130,10 @@
       </div>
       
       <div class="mt-4 md:mt-12 border-t border-[rgb(178,178,178)]/20 pt-3 md:pt-8">
-        <div class="flex flex-col items-center justify-between gap-2 md:gap-4 md:flex-row text-center md:text-left">
+        <div class="flex flex-col items-center justify-center gap-2 md:gap-3 text-center">
           <p class="text-[10px] md:text-sm text-[rgb(178,178,178)] px-4">
             &copy; Emak Yapı Malzemeleri Ltd. Şti. Tüm hakları saklıdır.
           </p>
-          <div class="flex flex-col sm:flex-row gap-2 sm:gap-6 text-[10px] md:text-sm text-[rgb(178,178,178)]">
-            <a href="#" class="hover:text-[rgb(39,45,122)] transition-colors">Gizlilik Politikası</a>
-            <a href="#" class="hover:text-[rgb(39,45,122)] transition-colors">Mesafeli Satış Sözleşmesi</a>
-          </div>
         </div>
       </div>
     </div>

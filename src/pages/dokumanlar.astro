@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
+import DocumentList from "../components/DocumentList.vue";
+import CTA from "../components/CTA.vue";
+---
+
+<Layout
+    title="Dokümanlar"
+    description="Emak Yapı ürün dokümanlarına, teknik şartnamelere ve kataloglara buradan ulaşabilirsiniz."
+>
+    <Navbar client:load />
+
+    <main class="pt-20">
+        <section
+            class="relative overflow-hidden bg-[rgb(39,45,122)] py-16 md:py-24"
+        >
+            <!-- Background pattern/gradient -->
+            <div class="absolute inset-0 opacity-10">
+                <div
+                    class="absolute -left-1/4 -top-1/4 h-full w-full rounded-full bg-white blur-3xl"
+                >
+                </div>
+                <div
+                    class="absolute -right-1/4 -bottom-1/4 h-full w-full rounded-full bg-white blur-3xl"
+                >
+                </div>
+            </div>
+
+            <div
+                class="container relative z-10 mx-auto px-4 text-center text-white"
+            >
+                <h1 class="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
+                    Dokümanlar
+                </h1>
+                <p class="mx-auto max-w-2xl text-lg text-white/80 md:text-xl">
+                    Ürünlerimize ait teknik belgeler, kataloglar ve şartnamelere
+                    hızlıca ulaşın ve indirin.
+                </p>
+            </div>
+        </section>
+
+        <DocumentList client:load />
+
+        <CTA client:load />
+    </main>
+
+    <Footer client:load />
+</Layout>

@@ -1,13 +1,17 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
+  title?: string;
   description?: string;
 }
 
-const defaultTitle = 'Emak Yapı';
-const { description = 'Emak Yapı, kaliteli inşaat malzemeleri ve çözümleri sunan güvenilir bir markadır.' } = Astro.props;
-const title = defaultTitle;
+const defaultTitle = "Emak Yapı";
+const {
+  title: pageTitle,
+  description = "Emak Yapı, kaliteli inşaat malzemeleri ve çözümleri sunan güvenilir bir markadır.",
+} = Astro.props;
+const title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle;
 ---
 
 <!doctype html>
@@ -24,5 +28,3 @@ const title = defaultTitle;
     <slot />
   </body>
 </html>
-
-

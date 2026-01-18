@@ -92,3 +92,8 @@ export const ALL_CITIES: CityData[] = [
   { id: 'TR81', name: 'Düzce', x: 311.3, y: 95.8, lat: 40.8438, lng: 31.1565 },
 ];
 
+
+
+
+
+

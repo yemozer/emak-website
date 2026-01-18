@@ -182,6 +182,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: 'Hakkımızda', href: '/hakkimizda' },
+  { label: 'Dokümanlar', href: '/dokumanlar' },
   { label: 'Hesap Tabloları', href: '/hesap-tablolari' },
   { label: 'Kariyer', href: 'https://www.kariyer.net/firma-profil/emak-yapi-malzemeleri-160860-85579', external: true },
   { label: 'İletişim', href: '/iletisim' },
