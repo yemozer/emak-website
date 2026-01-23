@@ -36,18 +36,17 @@
 import { ref } from 'vue';
 
 const brands = [
-  { name: 'KNAUF', logo: '/brands/knauf-logo.png' },
-  { name: 'WEBER', logo: '/brands/weber-logo.png' },
-  { name: 'DALSAN', logo: '/brands/dalsan-logo.png' },
-  { name: 'AUSTROTHERM', logo: '/brands/austrotherm-logo.png' },
-  { name: 'İZOCAM', logo: '/brands/izocam-logo.png' },
   { name: 'ABS', logo: '/brands/abs-logo.png' },
   { name: 'AKFİX', logo: '/brands/akfix-logo.png' },
   { name: 'ARAGONIT', logo: '/brands/aragonit-logo.png' },
+  { name: 'AUSTROTHERM', logo: '/brands/austrotherm-logo.png' },
   { name: 'BOSTIK', logo: '/brands/bostik-logo.png' },
+  { name: 'DALSAN', logo: '/brands/dalsan-logo.png' },
   { name: 'ENTEGRE', logo: '/brands/entegre-logo.png' },
   { name: 'FİXA', logo: '/brands/fixa-logo.png' },
+  { name: 'İZOCAM', logo: '/brands/izocam-logo.png' },
   { name: 'KILIÇOĞLU', logo: '/brands/kilicoglu-logo.png' },
+  { name: 'KNAUF', logo: '/brands/knauf-logo.png' },
   { name: 'MARMARA ÇİMENTO', logo: '/brands/marmara-logo.png' },
   { name: 'MARSHALL', logo: '/brands/marshall-logo.png' },
   { name: 'MEGARON', logo: '/brands/megaron-logo.png' },
@@ -58,6 +57,7 @@ const brands = [
   { name: 'QİS', logo: '/brands/qis-logo.png' },
   { name: 'TEPE', logo: '/brands/tepe-logo.png' },
   { name: 'WALLBOARD', logo: '/brands/wallboard-logo.png' },
+  { name: 'WEBER', logo: '/brands/weber-logo.png' },
 ];
 
 const handleImageError = (event: Event) => {
