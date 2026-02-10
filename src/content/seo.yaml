@@ -1,0 +1,13 @@
+default_title: "Emak Yapı"
+default_description: "Emak Yapı, kaliteli inşaat malzemeleri ve çözümleri sunan güvenilir bir markadır."
+pages:
+  galeri:
+    title: "Galeri"
+    description: "Emak Yapı depo, bina ve ürün görselleri. Ankara'daki tesislerimizi keşfedin."
+    hero_heading: "Galeri"
+    hero_description: "Depolarımız, tesislerimiz ve ürünlerimizden görüntüler"
+  dokumanlar:
+    title: "Dokümanlar"
+    description: "Emak Yapı ürün dokümanlarına, teknik şartnamelere ve kataloglara buradan ulaşabilirsiniz."
+    hero_heading: "Dokümanlar"
+    hero_description: "Ürünlerimize ait teknik belgeler, kataloglar ve şartnamelere hızlıca ulaşın ve indirin."

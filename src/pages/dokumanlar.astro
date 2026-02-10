@@ -4,19 +4,35 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import DocumentList from "../components/DocumentList.vue";
 import CTA from "../components/CTA.vue";
+
+import {
+    navigationContent,
+    ctaContent,
+    footerContent,
+    contactContent,
+    seoContent,
+} from "../content/loaders";
+
+const pageSeo = seoContent.pages.dokumanlar;
 ---
 
 <Layout
-    title="Dokümanlar"
-    description="Emak Yapı ürün dokümanlarına, teknik şartnamelere ve kataloglara buradan ulaşabilirsiniz."
+    title={pageSeo.title}
+    description={pageSeo.description}
 >
-    <Navbar client:load />
+    <Navbar
+        client:load
+        navItems={navigationContent.nav_items}
+        b2bButtonText={navigationContent.b2b_button_text}
+        b2bButtonLink={navigationContent.b2b_button_link}
+        ctaButtonText={navigationContent.cta_button_text}
+        ctaButtonLink={navigationContent.cta_button_link}
+    />
 
     <main class="pt-20">
         <section
             class="relative overflow-hidden bg-[rgb(39,45,122)] py-16 md:py-24"
         >
-            <!-- Background pattern/gradient -->
             <div class="absolute inset-0 opacity-10">
                 <div
                     class="absolute -left-1/4 -top-1/4 h-full w-full rounded-full bg-white blur-3xl"
@@ -32,19 +48,39 @@ import CTA from "../components/CTA.vue";
                 class="container relative z-10 mx-auto px-4 text-center text-white"
             >
                 <h1 class="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
-                    Dokümanlar
+                    {pageSeo.hero_heading}
                 </h1>
                 <p class="mx-auto max-w-2xl text-lg text-white/80 md:text-xl">
-                    Ürünlerimize ait teknik belgeler, kataloglar ve şartnamelere
-                    hızlıca ulaşın ve indirin.
+                    {pageSeo.hero_description}
                 </p>
             </div>
         </section>
 
         <DocumentList client:load />
 
-        <CTA client:load />
+        <CTA
+            client:load
+            heading={ctaContent.heading}
+            description={ctaContent.description}
+            ctaPrimaryText={ctaContent.cta_primary_text}
+            ctaPrimaryLink={ctaContent.cta_primary_link}
+            ctaSecondaryText={ctaContent.cta_secondary_text}
+            ctaSecondaryLink={ctaContent.cta_secondary_link}
+        />
     </main>
 
-    <Footer client:load />
+    <Footer
+        client:load
+        companyName={footerContent.company_name}
+        companyDescription={footerContent.company_description}
+        logo={footerContent.logo}
+        quickLinksHeading={footerContent.quick_links_heading}
+        quickLinks={footerContent.quick_links}
+        contactHeading={footerContent.contact_heading}
+        copyright={footerContent.copyright}
+        address={contactContent.address}
+        phones={contactContent.phones}
+        email={contactContent.email}
+        social={contactContent.social}
+    />
 </Layout>

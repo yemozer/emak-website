@@ -3,12 +3,48 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.vue';
 import Contact from '../components/Contact.vue';
 import Footer from '../components/Footer.vue';
+
+import {
+  navigationContent,
+  contactContent,
+  footerContent,
+} from '../content/loaders';
 ---
 
 <Layout>
-  <Navbar client:load />
-  <Contact client:load />
-  <Footer client:load />
+  <Navbar
+    client:load
+    navItems={navigationContent.nav_items}
+    b2bButtonText={navigationContent.b2b_button_text}
+    b2bButtonLink={navigationContent.b2b_button_link}
+    ctaButtonText={navigationContent.cta_button_text}
+    ctaButtonLink={navigationContent.cta_button_link}
+  />
+  <Contact
+    client:load
+    sectionBadge={contactContent.section_badge}
+    sectionHeading={contactContent.section_heading}
+    sectionDescription={contactContent.section_description}
+    infoHeading={contactContent.info_heading}
+    address={contactContent.address}
+    phones={contactContent.phones}
+    email={contactContent.email}
+    socialHeading={contactContent.social_heading}
+    social={contactContent.social}
+    googleMapsEmbed={contactContent.google_maps_embed}
+  />
+  <Footer
+    client:load
+    companyName={footerContent.company_name}
+    companyDescription={footerContent.company_description}
+    logo={footerContent.logo}
+    quickLinksHeading={footerContent.quick_links_heading}
+    quickLinks={footerContent.quick_links}
+    contactHeading={footerContent.contact_heading}
+    copyright={footerContent.copyright}
+    address={contactContent.address}
+    phones={contactContent.phones}
+    email={contactContent.email}
+    social={contactContent.social}
+  />
 </Layout>
-
-

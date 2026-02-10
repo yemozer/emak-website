@@ -3,13 +3,13 @@
     <div class="container mx-auto px-4 lg:px-8">
       <div class="mb-8 md:mb-7 lg:mb-9 text-center">
         <h2 class="mb-3 md:mb-3 lg:mb-4 text-2xl md:text-xl lg:text-2xl font-bold tracking-tight text-[rgb(39,45,122)]">
-          Çözüm Ortaklarımız
+          {{ sectionHeading }}
         </h2>
         <p class="mx-auto max-w-2xl text-base md:text-sm lg:text-base text-[rgb(178,178,178)] px-4">
-          Dünya çapında tanınmış markalarla çalışıyoruz
+          {{ sectionDescription }}
         </p>
       </div>
-      
+
       <div class="flex flex-wrap justify-center gap-2 md:gap-3 lg:gap-4">
         <div
           v-for="brand in brands"
@@ -33,35 +33,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
-const brands = [
-  { name: 'ABS', logo: '/brands/abs-logo.png' },
-  { name: 'AKFİX', logo: '/brands/akfix-logo.png' },
-  { name: 'ARAGONIT', logo: '/brands/aragonit-logo.png' },
-  { name: 'AUSTROTHERM', logo: '/brands/austrotherm-logo.png' },
-  { name: 'BOSTIK', logo: '/brands/bostik-logo.png' },
-  { name: 'DALSAN', logo: '/brands/dalsan-logo.png' },
-  { name: 'ENTEGRE', logo: '/brands/entegre-logo.png' },
-  { name: 'FİXA', logo: '/brands/fixa-logo.png' },
-  { name: 'İZOCAM', logo: '/brands/izocam-logo.png' },
-  { name: 'KILIÇOĞLU', logo: '/brands/kilicoglu-logo.png' },
-  { name: 'KNAUF', logo: '/brands/knauf-logo.png' },
-  { name: 'MARMARA ÇİMENTO', logo: '/brands/marmara-logo.png' },
-  { name: 'MARSHALL', logo: '/brands/marshall-logo.png' },
-  { name: 'MEGARON', logo: '/brands/megaron-logo.png' },
-  { name: 'NETBİMS', logo: '/brands/netbims.png' },
-  { name: 'NULLIFIRE', logo: '/brands/nullifire-logo.png' },
-  { name: 'ODE', logo: '/brands/ode-logo.png' },
-  { name: 'PANELSAN', logo: '/brands/panelsan-logo.png' },
-  { name: 'QİS', logo: '/brands/qis-logo.png' },
-  { name: 'TEPE', logo: '/brands/tepe-logo.png' },
-  { name: 'WALLBOARD', logo: '/brands/wallboard-logo.png' },
-  { name: 'WEBER', logo: '/brands/weber-logo.png' },
-];
+defineProps<{
+  sectionHeading: string;
+  sectionDescription: string;
+  brands: { name: string; logo: string }[];
+}>();
 
 const handleImageError = (event: Event) => {
-  // Hide image if it fails to load, text fallback will show
   const img = event.target as HTMLImageElement;
   if (img) {
     img.style.display = 'none';

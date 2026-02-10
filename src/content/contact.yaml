@@ -1,0 +1,22 @@
+section_badge: "İletişim"
+section_heading: "Bizimle İletişime Geçin"
+section_description: "Projeleriniz için en iyi çözümleri birlikte bulalım"
+info_heading: "İletişim Bilgileri"
+address:
+  line1: "Ostim OSB Mahallesi 1569 Sokak No: 31-33"
+  line2: "Yenimahalle, Ankara, Türkiye"
+phones:
+  - display: "+90 312 312 36 25"
+    href: "tel:+903123123625"
+  - display: "+90 312 385 50 60"
+    href: "tel:+903123855060"
+email:
+  display: "info@emakyapi.com.tr"
+  href: "mailto:info@emakyapi.com.tr"
+social_heading: "Sosyal Medya"
+social:
+  instagram: "https://www.instagram.com/emak.yapi"
+  linkedin: "https://linkedin.com/company/emakyapi"
+  facebook: "https://www.facebook.com/emakyapi"
+  whatsapp: "https://wa.me/905331232225"
+google_maps_embed: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d510.15175!2d32.7526497!3d39.9562952!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d349ad763cec9f%3A0xb83d86d01a9e913!2sEMAK%20YAPI!5e0!3m2!1str!2str!4v1705575900000!5m2!1str!2str"

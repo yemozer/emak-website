@@ -1,0 +1,432 @@
+backend:
+  name: github
+  repo: yemozer/emak-website
+  branch: main
+  base_url: https://sveltia-cms-auth.yunusozer.workers.dev
+
+locale: tr
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  # ============================================
+  # ANA SAYFA - HERO
+  # ============================================
+  - name: hero
+    label: "Ana Sayfa - Hero"
+    files:
+      - name: hero
+        label: "Hero Bölümü"
+        file: src/content/hero.yaml
+        fields:
+          - { name: heading, label: "Başlık", widget: string }
+          - { name: tagline, label: "Alt Başlık", widget: string }
+          - { name: description, label: "Açıklama", widget: text }
+          - { name: cta_primary_text, label: "Birincil Buton Metni", widget: string }
+          - { name: cta_primary_link, label: "Birincil Buton Linki", widget: string }
+          - { name: cta_primary_external, label: "Birincil Buton Dış Link mi?", widget: boolean, default: false }
+          - { name: cta_secondary_text, label: "İkincil Buton Metni", widget: string }
+          - { name: cta_secondary_text_mobile, label: "İkincil Buton Metni (Mobil)", widget: string }
+          - { name: cta_secondary_link, label: "İkincil Buton Linki", widget: string }
+          - { name: video_path, label: "Video Dosya Yolu", widget: string }
+
+  # ============================================
+  # HAKKIMIZDA - ÖN İZLEME (Ana Sayfa)
+  # ============================================
+  - name: about-preview
+    label: "Ana Sayfa - Hakkımızda Ön İzleme"
+    files:
+      - name: about-preview
+        label: "Hakkımızda Ön İzleme"
+        file: src/content/about-preview.yaml
+        fields:
+          - { name: badge, label: "Rozet Metni", widget: string }
+          - { name: heading, label: "Başlık", widget: string }
+          - { name: paragraph_1, label: "Paragraf 1 (HTML destekli)", widget: text }
+          - { name: paragraph_2, label: "Paragraf 2", widget: text }
+          - { name: cta_text, label: "Buton Metni", widget: string }
+          - { name: cta_link, label: "Buton Linki", widget: string }
+          - name: image
+            label: "Görsel"
+            widget: object
+            fields:
+              - { name: src, label: "Görsel Yolu", widget: image }
+              - { name: alt, label: "Alternatif Metin", widget: string }
+              - { name: caption, label: "Açıklama", widget: string }
+
+  # ============================================
+  # HİZMETLER
+  # ============================================
+  - name: services
+    label: "Ana Sayfa - Hizmetler"
+    files:
+      - name: services
+        label: "Hizmetler Bölümü"
+        file: src/content/services.yaml
+        fields:
+          - { name: section_badge, label: "Bölüm Rozeti", widget: string }
+          - { name: section_heading, label: "Bölüm Başlığı", widget: string }
+          - { name: section_description, label: "Bölüm Açıklaması", widget: text }
+          - name: services
+            label: "Hizmetler"
+            widget: list
+            fields:
+              - { name: name, label: "Hizmet Adı", widget: string }
+              - name: icon
+                label: "İkon"
+                widget: select
+                options:
+                  - { label: "Kitap", value: "BookOpen" }
+                  - { label: "Kamyon", value: "Truck" }
+                  - { label: "Hesap Makinesi", value: "Calculator" }
+                  - { label: "Alışveriş Sepeti", value: "ShoppingCart" }
+                  - { label: "Paket", value: "Package" }
+                  - { label: "Damla", value: "Droplets" }
+                  - { label: "Kar Tanesi", value: "Snowflake" }
+                  - { label: "Bina", value: "Building2" }
+                  - { label: "Izgara", value: "Grid3x3" }
+                  - { label: "Konum", value: "MapPin" }
+              - { name: description, label: "Açıklama", widget: text }
+              - { name: href, label: "Link", widget: string, required: false }
+              - { name: external, label: "Dış Link mi?", widget: boolean, default: false }
+
+  # ============================================
+  # ÜRÜN KATEGORİLERİ
+  # ============================================
+  - name: products
+    label: "Ana Sayfa - Ürünler"
+    files:
+      - name: products
+        label: "Ürünler Bölümü"
+        file: src/content/products.yaml
+        fields:
+          - { name: section_badge, label: "Bölüm Rozeti", widget: string }
+          - { name: section_heading, label: "Bölüm Başlığı", widget: string }
+          - { name: section_description, label: "Bölüm Açıklaması", widget: text }
+          - { name: catalog_link, label: "Katalog Linki", widget: string }
+          - name: categories
+            label: "Kategoriler"
+            widget: list
+            fields:
+              - { name: name, label: "Kategori Adı", widget: string }
+              - name: icon
+                label: "İkon"
+                widget: select
+                options:
+                  - { label: "Izgara", value: "Grid3x3" }
+                  - { label: "Bina", value: "Building2" }
+                  - { label: "Paket", value: "Package" }
+                  - { label: "Damla", value: "Droplets" }
+                  - { label: "Kar Tanesi", value: "Snowflake" }
+                  - { label: "Kitap", value: "BookOpen" }
+                  - { label: "Kamyon", value: "Truck" }
+                  - { label: "Hesap Makinesi", value: "Calculator" }
+                  - { label: "Alışveriş Sepeti", value: "ShoppingCart" }
+                  - { label: "Konum", value: "MapPin" }
+              - { name: description, label: "Açıklama", widget: text }
+
+  # ============================================
+  # MARKALAR
+  # ============================================
+  - name: brands
+    label: "Ana Sayfa - Markalar"
+    files:
+      - name: brands
+        label: "Markalar Bölümü"
+        file: src/content/brands.yaml
+        fields:
+          - { name: section_heading, label: "Bölüm Başlığı", widget: string }
+          - { name: section_description, label: "Bölüm Açıklaması", widget: text }
+          - name: brands
+            label: "Markalar"
+            widget: list
+            fields:
+              - { name: name, label: "Marka Adı", widget: string }
+              - { name: logo, label: "Logo", widget: image, media_folder: "/public/brands", public_folder: "/brands" }
+
+  # ============================================
+  # CTA (Harekete Geçirme)
+  # ============================================
+  - name: cta
+    label: "CTA Bölümü"
+    files:
+      - name: cta
+        label: "Harekete Geçirme"
+        file: src/content/cta.yaml
+        fields:
+          - { name: heading, label: "Başlık", widget: string }
+          - { name: description, label: "Açıklama", widget: text }
+          - { name: cta_primary_text, label: "Birincil Buton Metni", widget: string }
+          - { name: cta_primary_link, label: "Birincil Buton Linki", widget: string }
+          - { name: cta_secondary_text, label: "İkincil Buton Metni", widget: string }
+          - { name: cta_secondary_link, label: "İkincil Buton Linki", widget: string }
+
+  # ============================================
+  # HAKKIMIZDA SAYFASI
+  # ============================================
+  - name: about
+    label: "Hakkımızda Sayfası"
+    files:
+      - name: about
+        label: "Hakkımızda İçeriği"
+        file: src/content/about.yaml
+        fields:
+          - { name: page_heading, label: "Sayfa Başlığı", widget: string }
+          - { name: intro_paragraph_1, label: "Giriş Paragrafı 1 (HTML destekli)", widget: text }
+          - { name: intro_paragraph_2, label: "Giriş Paragrafı 2", widget: text }
+          - name: key_points
+            label: "Öne Çıkan Noktalar"
+            widget: list
+            fields:
+              - name: icon
+                label: "İkon"
+                widget: select
+                options:
+                  - { label: "Konum", value: "MapPin" }
+                  - { label: "Paket", value: "Package" }
+                  - { label: "Kamyon", value: "Truck" }
+                  - { label: "Bina", value: "Building2" }
+                  - { label: "Kitap", value: "BookOpen" }
+              - { name: title, label: "Başlık", widget: string }
+              - { name: description, label: "Açıklama", widget: text }
+          - name: images
+            label: "Görseller"
+            widget: list
+            max: 2
+            fields:
+              - { name: src, label: "Görsel", widget: image, media_folder: "/public/images/about", public_folder: "/images/about" }
+              - { name: alt, label: "Alternatif Metin", widget: string }
+          - { name: vision_heading, label: "Vizyon Başlığı", widget: string }
+          - { name: vision_text, label: "Vizyon Metni", widget: text }
+          - { name: values_heading, label: "Değerler Başlığı", widget: string }
+          - name: values
+            label: "Değerler"
+            widget: list
+            field: { name: value, label: "Değer", widget: string }
+          - { name: brand_partners_label, label: "Marka Ortakları Etiketi", widget: string }
+          - { name: brand_partners_text, label: "Marka Ortakları Metni", widget: text }
+
+  # ============================================
+  # GALERİ
+  # ============================================
+  - name: gallery
+    label: "Galeri"
+    files:
+      - name: gallery
+        label: "Galeri Öğeleri"
+        file: src/content/gallery.yaml
+        fields:
+          - name: items
+            label: "Galeri Öğeleri"
+            widget: list
+            fields:
+              - { name: src, label: "Dosya", widget: image, media_folder: "/public/images/gallery", public_folder: "/images/gallery" }
+              - { name: alt, label: "Açıklama", widget: string }
+              - name: type
+                label: "Tür"
+                widget: select
+                options:
+                  - { label: "Görsel", value: "image" }
+                  - { label: "Video", value: "video" }
+
+  # ============================================
+  # İLETİŞİM
+  # ============================================
+  - name: contact
+    label: "İletişim"
+    files:
+      - name: contact
+        label: "İletişim Bilgileri"
+        file: src/content/contact.yaml
+        fields:
+          - { name: section_badge, label: "Bölüm Rozeti", widget: string }
+          - { name: section_heading, label: "Bölüm Başlığı", widget: string }
+          - { name: section_description, label: "Bölüm Açıklaması", widget: text }
+          - { name: info_heading, label: "Bilgi Başlığı", widget: string }
+          - name: address
+            label: "Adres"
+            widget: object
+            fields:
+              - { name: line1, label: "Satır 1", widget: string }
+              - { name: line2, label: "Satır 2", widget: string }
+          - name: phones
+            label: "Telefonlar"
+            widget: list
+            fields:
+              - { name: display, label: "Görüntülenen Numara", widget: string }
+              - { name: href, label: "Arama Linki (tel:+90...)", widget: string }
+          - name: email
+            label: "E-posta"
+            widget: object
+            fields:
+              - { name: display, label: "Görüntülenen E-posta", widget: string }
+              - { name: href, label: "E-posta Linki (mailto:...)", widget: string }
+          - { name: social_heading, label: "Sosyal Medya Başlığı", widget: string }
+          - name: social
+            label: "Sosyal Medya Linkleri"
+            widget: object
+            fields:
+              - { name: instagram, label: "Instagram", widget: string, required: false }
+              - { name: linkedin, label: "LinkedIn", widget: string, required: false }
+              - { name: facebook, label: "Facebook", widget: string, required: false }
+              - { name: whatsapp, label: "WhatsApp", widget: string, required: false }
+          - { name: google_maps_embed, label: "Google Maps Embed URL", widget: string }
+
+  # ============================================
+  # NAVİGASYON
+  # ============================================
+  - name: navigation
+    label: "Navigasyon"
+    files:
+      - name: navigation
+        label: "Menü Ayarları"
+        file: src/content/navigation.yaml
+        fields:
+          - name: nav_items
+            label: "Menü Öğeleri"
+            widget: list
+            fields:
+              - { name: label, label: "Metin", widget: string }
+              - { name: href, label: "Link", widget: string }
+              - { name: external, label: "Dış Link mi?", widget: boolean, default: false }
+          - { name: b2b_button_text, label: "B2B Buton Metni", widget: string }
+          - { name: b2b_button_link, label: "B2B Buton Linki", widget: string }
+          - { name: cta_button_text, label: "CTA Buton Metni", widget: string }
+          - { name: cta_button_link, label: "CTA Buton Linki", widget: string }
+
+  # ============================================
+  # FOOTER
+  # ============================================
+  - name: footer
+    label: "Footer"
+    files:
+      - name: footer
+        label: "Footer İçeriği"
+        file: src/content/footer.yaml
+        fields:
+          - { name: company_name, label: "Şirket Adı", widget: string }
+          - { name: company_description, label: "Şirket Açıklaması", widget: text }
+          - { name: logo, label: "Logo", widget: image }
+          - { name: quick_links_heading, label: "Hızlı Linkler Başlığı", widget: string }
+          - name: quick_links
+            label: "Hızlı Linkler"
+            widget: list
+            fields:
+              - { name: label, label: "Metin", widget: string }
+              - { name: href, label: "Link", widget: string }
+              - { name: external, label: "Dış Link mi?", widget: boolean, default: false }
+          - { name: contact_heading, label: "İletişim Başlığı", widget: string }
+          - { name: copyright, label: "Telif Hakkı Metni", widget: string }
+
+  # ============================================
+  # SEO
+  # ============================================
+  - name: seo
+    label: "SEO Ayarları"
+    files:
+      - name: seo
+        label: "SEO ve Sayfa Meta Bilgileri"
+        file: src/content/seo.yaml
+        fields:
+          - { name: default_title, label: "Varsayılan Sayfa Başlığı", widget: string }
+          - { name: default_description, label: "Varsayılan Sayfa Açıklaması", widget: text }
+          - name: pages
+            label: "Sayfa Bazlı SEO"
+            widget: object
+            fields:
+              - name: galeri
+                label: "Galeri Sayfası"
+                widget: object
+                fields:
+                  - { name: title, label: "Sayfa Başlığı", widget: string }
+                  - { name: description, label: "Meta Açıklama", widget: text }
+                  - { name: hero_heading, label: "Hero Başlığı", widget: string }
+                  - { name: hero_description, label: "Hero Açıklaması", widget: text }
+              - name: dokumanlar
+                label: "Dokümanlar Sayfası"
+                widget: object
+                fields:
+                  - { name: title, label: "Sayfa Başlığı", widget: string }
+                  - { name: description, label: "Meta Açıklama", widget: text }
+                  - { name: hero_heading, label: "Hero Başlığı", widget: string }
+                  - { name: hero_description, label: "Hero Açıklaması", widget: text }
+
+  # ============================================
+  # FABRİKA KONUMLARI
+  # ============================================
+  - name: factories
+    label: "Fabrika Konumları"
+    files:
+      - name: factories
+        label: "Fabrikalar"
+        file: src/data/factories.yaml
+        fields:
+          - name: fabrikalar
+            label: "Fabrikalar"
+            widget: list
+            fields:
+              - { name: ad, label: "Fabrika Adı", widget: string }
+              - { name: sehir, label: "Şehir", widget: string }
+              - { name: lat, label: "Enlem", widget: number, required: false, value_type: float }
+              - { name: lng, label: "Boylam", widget: number, required: false, value_type: float }
+
+  # ============================================
+  # HESAP TABLOLARI
+  # ============================================
+  - name: calculators
+    label: "Hesap Tabloları"
+    files:
+      - name: calculators
+        label: "Hesaplayıcılar"
+        file: src/data/calculators.yaml
+        fields:
+          - name: hesaplayicilar
+            label: "Hesaplayıcılar"
+            widget: list
+            fields:
+              - { name: kimlik, label: "Kimlik (URL-uyumlu)", widget: string }
+              - { name: baslik, label: "Başlık", widget: string }
+              - { name: alt_baslik, label: "Alt Başlık", widget: string }
+              - { name: aciklama, label: "Açıklama", widget: text }
+              - name: girdiler
+                label: "Girdiler"
+                widget: list
+                fields:
+                  - { name: anahtar, label: "Anahtar", widget: string }
+                  - { name: etiket, label: "Etiket", widget: string }
+                  - { name: birim, label: "Birim", widget: string }
+                  - { name: minimum, label: "Minimum Değer", widget: number, value_type: float, default: 0 }
+                  - { name: adim, label: "Adım", widget: number, value_type: float, default: 0.1 }
+                  - { name: ornek, label: "Örnek Metin", widget: string }
+                  - { name: varsayilan, label: "Varsayılan Değer", widget: number, value_type: float }
+              - name: malzemeler
+                label: "Malzemeler (Konfigürasyonsuz)"
+                widget: list
+                required: false
+                fields:
+                  - { name: anahtar, label: "Anahtar", widget: string }
+                  - { name: etiket, label: "Etiket", widget: string }
+                  - { name: birim, label: "Birim", widget: string }
+                  - { name: formul, label: "Formül", widget: string, hint: "Örn: metrekare * 4" }
+              - { name: varsayilan_konfigurasyon, label: "Varsayılan Konfigürasyon", widget: string, required: false }
+              - name: konfigurasyonlar
+                label: "Konfigürasyonlar"
+                widget: list
+                required: false
+                fields:
+                  - { name: anahtar, label: "Anahtar", widget: string }
+                  - { name: etiket, label: "Etiket", widget: string }
+                  - { name: aciklama, label: "Açıklama", widget: string, required: false }
+                  - name: malzemeler
+                    label: "Malzemeler"
+                    widget: list
+                    fields:
+                      - { name: anahtar, label: "Anahtar", widget: string }
+                      - { name: etiket, label: "Etiket", widget: string }
+                      - { name: birim, label: "Birim", widget: string }
+                      - { name: formul, label: "Formül", widget: string, hint: "Örn: metrekare * 4" }
+              - name: notlar
+                label: "Notlar"
+                widget: list
+                field: { name: not, label: "Not", widget: string }

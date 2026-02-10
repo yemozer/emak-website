@@ -5,9 +5,9 @@
         <!-- Grid -->
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
           <div
-            v-for="item in galleryItems"
-            :key="item.id"
-            @click="openLightbox(item)"
+            v-for="(item, index) in indexedItems"
+            :key="index"
+            @click="openLightbox(item, index)"
             class="group relative aspect-[4/3] overflow-hidden rounded-xl cursor-pointer shadow-sm hover:shadow-lg transition-all hover:-translate-y-0.5"
           >
             <!-- Image thumbnail -->
@@ -112,7 +112,7 @@
 
           <!-- Counter -->
           <div class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-1.5 text-white text-sm">
-            {{ currentIndex + 1 }} / {{ galleryItems.length }}
+            {{ currentIndex + 1 }} / {{ items.length }}
           </div>
         </div>
       </Transition>
@@ -121,16 +121,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Play, ZoomIn, X, ChevronLeft, ChevronRight } from 'lucide-vue-next';
-import { galleryItems, type GalleryItem } from '../data/gallery';
+
+type GalleryItem = {
+  src: string;
+  alt: string;
+  type: 'image' | 'video';
+};
+
+const props = defineProps<{
+  items: GalleryItem[];
+}>();
+
+const indexedItems = computed(() => props.items);
 
 const lightboxItem = ref<GalleryItem | null>(null);
 const currentIndex = ref(0);
 
-const openLightbox = (item: GalleryItem) => {
+const openLightbox = (item: GalleryItem, index: number) => {
   lightboxItem.value = item;
-  currentIndex.value = galleryItems.findIndex(i => i.id === item.id);
+  currentIndex.value = index;
   document.body.style.overflow = 'hidden';
 };
 
@@ -140,15 +151,15 @@ const closeLightbox = () => {
 };
 
 const nextItem = () => {
-  const next = (currentIndex.value + 1) % galleryItems.length;
+  const next = (currentIndex.value + 1) % props.items.length;
   currentIndex.value = next;
-  lightboxItem.value = galleryItems[next];
+  lightboxItem.value = props.items[next];
 };
 
 const prevItem = () => {
-  const prev = (currentIndex.value - 1 + galleryItems.length) % galleryItems.length;
+  const prev = (currentIndex.value - 1 + props.items.length) % props.items.length;
   currentIndex.value = prev;
-  lightboxItem.value = galleryItems[prev];
+  lightboxItem.value = props.items[prev];
 };
 
 const handleKeydown = (e: KeyboardEvent) => {

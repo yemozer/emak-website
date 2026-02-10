@@ -5,20 +5,19 @@
         <!-- Company Info -->
         <div class="col-span-2 md:col-span-1">
           <div class="mb-2 md:mb-6 flex items-center gap-2 md:gap-3">
-            <img 
-              src="/emak-logo.png" 
-              alt="Emak Yapı Logo" 
+            <img
+              :src="logo"
+              alt="Emak Yapı Logo"
               class="h-6 md:h-10 w-auto object-contain"
             />
-            <h3 class="text-lg md:text-2xl font-bold text-[rgb(39,45,122)]">Emak Yapı</h3>
+            <h3 class="text-lg md:text-2xl font-bold text-[rgb(39,45,122)]">{{ companyName }}</h3>
           </div>
           <p class="mb-3 md:mb-8 text-[10px] md:text-sm text-[rgb(178,178,178)] leading-tight md:leading-relaxed">
-            Türkiye'nin yapı malzemeleri mağazası. İnşaat projelerinize toptan ürün tedariği 
-            sağlayan güvenilir çözüm ortağınız.
+            {{ companyDescription }}
           </p>
           <div class="flex gap-2 md:gap-4">
             <a
-              href="https://www.instagram.com/emak.yapi"
+              :href="social.instagram"
               target="_blank"
               rel="noopener noreferrer"
               class="flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white transition-all hover:bg-[rgb(39,45,122)] hover:text-white hover:shadow-lg active:scale-95"
@@ -27,7 +26,7 @@
               <Instagram :size="14" class="md:w-5 md:h-5" />
             </a>
             <a
-              href="https://linkedin.com/company/emakyapi"
+              :href="social.linkedin"
               target="_blank"
               rel="noopener noreferrer"
               class="flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white transition-all hover:bg-[rgb(39,45,122)] hover:text-white hover:shadow-lg active:scale-95"
@@ -36,7 +35,7 @@
               <Linkedin :size="14" class="md:w-5 md:h-5" />
             </a>
             <a
-              href="https://www.facebook.com/emakyapi"
+              :href="social.facebook"
               target="_blank"
               rel="noopener noreferrer"
               class="flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white transition-all hover:bg-[rgb(39,45,122)] hover:text-white hover:shadow-lg active:scale-95"
@@ -45,7 +44,7 @@
               <Facebook :size="14" class="md:w-5 md:h-5" />
             </a>
             <a
-              href="https://wa.me/905331232225"
+              :href="social.whatsapp"
               target="_blank"
               rel="noopener noreferrer"
               class="flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white transition-all hover:bg-[#25D366] hover:text-white hover:shadow-lg active:scale-95"
@@ -57,87 +56,54 @@
             </a>
           </div>
         </div>
-        
+
         <!-- Quick Links -->
         <div>
-          <h4 class="mb-2 md:mb-6 text-xs md:text-lg font-semibold text-[rgb(39,45,122)]">Hızlı Linkler</h4>
+          <h4 class="mb-2 md:mb-6 text-xs md:text-lg font-semibold text-[rgb(39,45,122)]">{{ quickLinksHeading }}</h4>
           <ul class="space-y-1 md:space-y-3">
-            <li>
-              <a href="/hakkimizda" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
-                Hakkımızda
-              </a>
-            </li>
-            <li>
-              <a href="/dokumanlar" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
-                Dokümanlar
-              </a>
-            </li>
-            <li>
-              <a href="/#urunler" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
-                Ürünler
-              </a>
-            </li>
-            <li>
-              <a href="/#hizmetler" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
-                Hizmetler
-              </a>
-            </li>
-            <li>
-              <a href="/galeri" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
-                Galeri
-              </a>
-            </li>
-            <li>
-              <a href="/iletisim" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
-                İletişim
-              </a>
-            </li>
-            <li>
-              <a 
-                href="https://www.kariyer.net/firma-profil/emak-yapi-malzemeleri-160860-85579" 
-                target="_blank"
-                rel="noopener noreferrer"
+            <li v-for="link in quickLinks" :key="link.href">
+              <a
+                :href="link.href"
+                :target="link.external ? '_blank' : undefined"
+                :rel="link.external ? 'noopener noreferrer' : undefined"
                 class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]"
               >
-                Kariyer
+                {{ link.label }}
               </a>
             </li>
           </ul>
         </div>
-        
+
         <!-- Contact -->
         <div>
-          <h4 class="mb-2 md:mb-6 text-xs md:text-lg font-semibold text-[rgb(39,45,122)]">İletişim</h4>
+          <h4 class="mb-2 md:mb-6 text-xs md:text-lg font-semibold text-[rgb(39,45,122)]">{{ contactHeading }}</h4>
           <ul class="space-y-1.5 md:space-y-4 text-[10px] md:text-sm text-[rgb(178,178,178)]">
             <li class="flex items-start gap-1.5 md:gap-3">
               <MapPin :size="12" class="md:w-[18px] md:h-[18px] mt-0.5 text-[rgb(39,45,122)] flex-shrink-0" />
-              <span class="leading-tight">Ostim OSB Mahallesi 1569 Sokak No: 31-33<br />Yenimahalle, Ankara</span>
+              <span class="leading-tight">{{ address.line1 }}<br />{{ address.line2 }}</span>
             </li>
             <li class="flex items-center gap-1.5 md:gap-3">
               <Phone :size="12" class="md:w-[18px] md:h-[18px] text-[rgb(39,45,122)] flex-shrink-0" />
               <div class="space-y-0.5 md:space-y-1">
-                <a href="tel:+903123123625" class="block hover:text-[rgb(39,45,122)] transition-colors">
-                  +90 312 312 36 25
-                </a>
-                <a href="tel:+903123855060" class="block hover:text-[rgb(39,45,122)] transition-colors">
-                  +90 312 385 50 60
+                <a v-for="phone in phones" :key="phone.href" :href="phone.href" class="block hover:text-[rgb(39,45,122)] transition-colors">
+                  {{ phone.display }}
                 </a>
               </div>
             </li>
             <li class="flex items-center gap-1.5 md:gap-3">
               <Mail :size="12" class="md:w-[18px] md:h-[18px] text-[rgb(39,45,122)] flex-shrink-0" />
-              <a href="mailto:info@emakyapi.com.tr" class="hover:text-[rgb(39,45,122)] transition-colors break-all">
-                info@emakyapi.com.tr
+              <a :href="email.href" class="hover:text-[rgb(39,45,122)] transition-colors break-all">
+                {{ email.display }}
               </a>
             </li>
           </ul>
         </div>
       </div>
-      
+
       <div class="mt-4 md:mt-12 border-t border-[rgb(178,178,178)]/20 pt-3 md:pt-8">
         <div class="flex flex-col items-center justify-center gap-2 md:gap-3 text-center">
           <p class="text-[10px] md:text-sm text-[rgb(178,178,178)] px-4">
-            &copy; Emak Yapı Malzemeleri Ltd. Şti. Tüm hakları saklıdır.
+            &copy; {{ copyright }}
           </p>
         </div>
       </div>
@@ -147,4 +113,18 @@
 
 <script setup lang="ts">
 import { Facebook, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-vue-next';
+
+defineProps<{
+  companyName: string;
+  companyDescription: string;
+  logo: string;
+  quickLinksHeading: string;
+  quickLinks: { label: string; href: string; external: boolean }[];
+  contactHeading: string;
+  copyright: string;
+  address: { line1: string; line2: string };
+  phones: { display: string; href: string }[];
+  email: { display: string; href: string };
+  social: { instagram: string; linkedin: string; facebook: string; whatsapp: string };
+}>();
 </script>

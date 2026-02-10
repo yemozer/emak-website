@@ -9,16 +9,95 @@ import Products from '../components/Products.vue';
 import Services from '../components/Services.vue';
 import CTA from '../components/CTA.vue';
 import Footer from '../components/Footer.vue';
+
+import {
+  heroContent,
+  navigationContent,
+  brandsContent,
+  aboutPreviewContent,
+  productsContent,
+  servicesContent,
+  ctaContent,
+  footerContent,
+  contactContent,
+} from '../content/loaders';
 ---
 
 <Layout>
-  <Navbar client:load />
-  <Hero client:load />
-  <BrandPartners client:load />
-  <AboutPreview client:load />
+  <Navbar
+    client:load
+    navItems={navigationContent.nav_items}
+    b2bButtonText={navigationContent.b2b_button_text}
+    b2bButtonLink={navigationContent.b2b_button_link}
+    ctaButtonText={navigationContent.cta_button_text}
+    ctaButtonLink={navigationContent.cta_button_link}
+  />
+  <Hero
+    client:load
+    heading={heroContent.heading}
+    tagline={heroContent.tagline}
+    description={heroContent.description}
+    ctaPrimaryText={heroContent.cta_primary_text}
+    ctaPrimaryLink={heroContent.cta_primary_link}
+    ctaPrimaryExternal={heroContent.cta_primary_external}
+    ctaSecondaryText={heroContent.cta_secondary_text}
+    ctaSecondaryTextMobile={heroContent.cta_secondary_text_mobile}
+    ctaSecondaryLink={heroContent.cta_secondary_link}
+    videoPath={heroContent.video_path}
+  />
+  <BrandPartners
+    client:load
+    sectionHeading={brandsContent.section_heading}
+    sectionDescription={brandsContent.section_description}
+    brands={brandsContent.brands}
+  />
+  <AboutPreview
+    client:load
+    badge={aboutPreviewContent.badge}
+    heading={aboutPreviewContent.heading}
+    paragraph1={aboutPreviewContent.paragraph_1}
+    paragraph2={aboutPreviewContent.paragraph_2}
+    ctaText={aboutPreviewContent.cta_text}
+    ctaLink={aboutPreviewContent.cta_link}
+    image={aboutPreviewContent.image}
+  />
   <FactoryLocations client:load />
-  <Products client:load />
-  <Services client:load />
-  <CTA client:load />
-  <Footer client:load />
+  <Products
+    client:load
+    sectionBadge={productsContent.section_badge}
+    sectionHeading={productsContent.section_heading}
+    sectionDescription={productsContent.section_description}
+    catalogLink={productsContent.catalog_link}
+    categories={productsContent.categories}
+  />
+  <Services
+    client:load
+    sectionBadge={servicesContent.section_badge}
+    sectionHeading={servicesContent.section_heading}
+    sectionDescription={servicesContent.section_description}
+    services={servicesContent.services}
+  />
+  <CTA
+    client:load
+    heading={ctaContent.heading}
+    description={ctaContent.description}
+    ctaPrimaryText={ctaContent.cta_primary_text}
+    ctaPrimaryLink={ctaContent.cta_primary_link}
+    ctaSecondaryText={ctaContent.cta_secondary_text}
+    ctaSecondaryLink={ctaContent.cta_secondary_link}
+  />
+  <Footer
+    client:load
+    companyName={footerContent.company_name}
+    companyDescription={footerContent.company_description}
+    logo={footerContent.logo}
+    quickLinksHeading={footerContent.quick_links_heading}
+    quickLinks={footerContent.quick_links}
+    contactHeading={footerContent.contact_heading}
+    copyright={footerContent.copyright}
+    address={contactContent.address}
+    phones={contactContent.phones}
+    email={contactContent.email}
+    social={contactContent.social}
+  />
 </Layout>

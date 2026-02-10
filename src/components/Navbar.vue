@@ -6,21 +6,21 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 md:h-20 items-center justify-between">
         <!-- Logo -->
-        <a 
-          href="/" 
+        <a
+          href="/"
           class="group flex items-center transition-all duration-300 flex-shrink-0"
         >
-          <img 
-            src="/emak-logo.png" 
-            alt="Emak Yapı" 
+          <img
+            src="/emak-logo.png"
+            alt="Emak Yapı"
             class="h-12 md:h-16 w-auto object-contain transition-all duration-300 group-hover:brightness-110 group-hover:scale-105"
             :class="shouldShowTransparent && !scrolled
-              ? 'brightness-125 contrast-125 drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)]' 
+              ? 'brightness-125 contrast-125 drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)]'
               : 'brightness-100 drop-shadow-none'"
             :style="shouldShowTransparent && !scrolled ? 'filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));' : ''"
           />
         </a>
-        
+
         <!-- Desktop Navigation -->
         <div class="hidden lg:flex lg:items-center lg:gap-6 absolute left-1/2 transform -translate-x-1/2">
           <template v-for="item in navItems" :key="item.href">
@@ -31,14 +31,14 @@
               :rel="item.external ? 'noopener noreferrer' : undefined"
               class="group relative text-sm font-medium transition-colors"
               :class="shouldShowTransparent && !scrolled
-                ? 'text-white hover:text-white/80' 
+                ? 'text-white hover:text-white/80'
                 : 'text-[rgb(39,45,122)] hover:text-[rgb(39,45,122)]/70'"
             >
               {{ item.label }}
-              <span 
+              <span
                 class="absolute -bottom-1 left-0 h-0.5 w-0 transition-all duration-300 group-hover:w-full"
-                :class="shouldShowTransparent && !scrolled 
-                  ? 'bg-white' 
+                :class="shouldShowTransparent && !scrolled
+                  ? 'bg-white'
                   : 'bg-[rgb(39,45,122)]'"
               ></span>
             </a>
@@ -46,44 +46,44 @@
               v-else
               class="relative text-sm font-semibold"
               :class="shouldShowTransparent && !scrolled
-                ? 'text-white' 
+                ? 'text-white'
                 : 'text-[rgb(39,45,122)]'"
             >
               {{ item.label }}
-              <span 
+              <span
                 class="absolute -bottom-1 left-0 h-0.5 w-full"
-                :class="shouldShowTransparent && !scrolled 
-                  ? 'bg-white' 
+                :class="shouldShowTransparent && !scrolled
+                  ? 'bg-white'
                   : 'bg-[rgb(39,45,122)]'"
               ></span>
             </span>
           </template>
         </div>
-        
+
         <!-- CTA Buttons -->
         <div class="hidden lg:flex lg:items-center lg:gap-3 flex-shrink-0">
           <a
-            href="https://emakyapi.revleno.com"
+            :href="b2bButtonLink"
             target="_blank"
             rel="noopener noreferrer"
             class="navbar-cta-button rounded-lg px-5 py-2.5 text-sm font-semibold shadow-lg border-2 transition-all"
             :class="shouldShowTransparent && !scrolled
-              ? 'bg-transparent border-white text-white hover:bg-white/10' 
+              ? 'bg-transparent border-white text-white hover:bg-white/10'
               : 'bg-transparent border-[rgb(39,45,122)] text-[rgb(39,45,122)] hover:bg-[rgb(39,45,122)]/10'"
           >
-            B2B Girişi
+            {{ b2bButtonText }}
           </a>
           <a
-            href="/iletisim"
+            :href="ctaButtonLink"
             class="navbar-cta-button rounded-lg px-6 py-2.5 text-sm font-semibold shadow-lg"
             :class="shouldShowTransparent && !scrolled
-              ? 'bg-white text-[rgb(39,45,122)] hover:bg-white/90' 
+              ? 'bg-white text-[rgb(39,45,122)] hover:bg-white/90'
               : 'bg-[rgb(39,45,122)] text-white hover:bg-[rgb(39,45,122)]/90'"
           >
-            Teklif Al
+            {{ ctaButtonText }}
           </a>
         </div>
-        
+
         <!-- Mobile Menu Button -->
         <button
           @click="mobileMenuOpen = !mobileMenuOpen"
@@ -111,7 +111,7 @@
         </button>
       </div>
     </div>
-    
+
     <!-- Mobile Menu -->
     <Transition
       enter-active-class="transition duration-200 ease-out"
@@ -145,20 +145,20 @@
             </span>
           </template>
           <a
-            href="https://emakyapi.revleno.com"
+            :href="b2bButtonLink"
             target="_blank"
             rel="noopener noreferrer"
             @click="mobileMenuOpen = false"
             class="rounded-lg border-2 border-[rgb(39,45,122)] bg-transparent px-4 py-3 text-center text-base font-semibold text-[rgb(39,45,122)] transition-colors hover:bg-[rgb(39,45,122)]/10"
           >
-            B2B Girişi
+            {{ b2bButtonText }}
           </a>
           <a
-            href="/iletisim"
+            :href="ctaButtonLink"
             @click="mobileMenuOpen = false"
             class="mt-2 rounded-lg bg-[rgb(39,45,122)] px-4 py-3 text-center text-base font-semibold text-white transition-colors hover:bg-[rgb(39,45,122)]/90"
           >
-            Teklif Al
+            {{ ctaButtonText }}
           </a>
         </div>
       </div>
@@ -167,37 +167,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const scrolled = ref(false);
 const mobileMenuOpen = ref(false);
 const shouldShowTransparent = ref(false);
 const currentPath = ref('');
 
-interface NavItem {
-  label: string;
-  href: string;
-  external?: boolean;
-}
-
-const navItems: NavItem[] = [
-  { label: 'Hakkımızda', href: '/hakkimizda' },
-  { label: 'Dokümanlar', href: '/dokumanlar' },
-  { label: 'Hesap Tabloları', href: '/hesap-tablolari' },
-  { label: 'Galeri', href: '/galeri' },
-  { label: 'Kariyer', href: 'https://www.kariyer.net/firma-profil/emak-yapi-malzemeleri-160860-85579', external: true },
-  { label: 'İletişim', href: '/iletisim' },
-];
+defineProps<{
+  navItems: { label: string; href: string; external: boolean }[];
+  b2bButtonText: string;
+  b2bButtonLink: string;
+  ctaButtonText: string;
+  ctaButtonLink: string;
+}>();
 
 const isCurrentPage = (href: string) => {
   if (typeof window === 'undefined') return false;
-  
-  // For hash links, check if we're on home page
+
   if (href.startsWith('/#')) {
     return currentPath.value === '/' || currentPath.value === '/index.html';
   }
-  
-  // For regular paths, check exact match
+
   return currentPath.value === href;
 };
 
@@ -208,17 +199,15 @@ const handleScroll = () => {
 onMounted(() => {
   if (typeof window !== 'undefined') {
     currentPath.value = window.location.pathname;
-    
-    // Check if we're on the home page (has hero section)
+
     const isHomePage = currentPath.value === '/' || currentPath.value === '/index.html';
     shouldShowTransparent.value = isHomePage;
-    
-    // If not on home page, start with scrolled state
+
     if (!isHomePage) {
       scrolled.value = true;
     }
   }
-  
+
   window.addEventListener('scroll', handleScroll);
   handleScroll();
 });
@@ -232,7 +221,7 @@ onUnmounted(() => {
 
 <style scoped>
 .navbar-cta-button {
-  transition: background-color 0.3s ease-in-out, 
+  transition: background-color 0.3s ease-in-out,
               box-shadow 0.3s ease-in-out,
               transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   transform: scale(1) !important;

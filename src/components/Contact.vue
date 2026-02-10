@@ -4,22 +4,22 @@
       <!-- Header -->
       <div class="mb-12 md:mb-16 lg:mb-20 text-center">
         <span class="mb-3 md:mb-4 inline-block rounded-full bg-[rgb(39,45,122)]/10 px-4 md:px-5 py-1.5 md:py-2 text-xs md:text-sm font-semibold text-[rgb(39,45,122)]">
-          İletişim
+          {{ sectionBadge }}
         </span>
         <h2 class="mb-4 md:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-[rgb(39,45,122)] px-4">
-          Bizimle İletişime Geçin
+          {{ sectionHeading }}
         </h2>
         <p class="mx-auto max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl text-[rgb(178,178,178)] leading-relaxed px-4">
-          Projeleriniz için en iyi çözümleri birlikte bulalım
+          {{ sectionDescription }}
         </p>
       </div>
-      
+
       <div class="mx-auto max-w-6xl">
         <div class="grid gap-8 md:gap-10 lg:gap-12 lg:grid-cols-2">
           <!-- Contact Info -->
           <div class="space-y-6 md:space-y-8 lg:space-y-10">
             <div>
-              <h3 class="mb-6 md:mb-8 text-2xl md:text-3xl font-semibold text-[rgb(39,45,122)]">İletişim Bilgileri</h3>
+              <h3 class="mb-6 md:mb-8 text-2xl md:text-3xl font-semibold text-[rgb(39,45,122)]">{{ infoHeading }}</h3>
               <div class="space-y-4 md:space-y-6">
                 <div class="flex items-start gap-3 md:gap-5">
                   <div class="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-lg md:rounded-xl bg-[rgb(39,45,122)]/10 flex-shrink-0">
@@ -28,8 +28,8 @@
                   <div>
                     <p class="mb-1 md:mb-2 text-sm md:text-base font-semibold text-[rgb(39,45,122)]">Adres</p>
                     <p class="text-xs md:text-sm text-[rgb(178,178,178)]">
-                      Ostim OSB Mahallesi 1569 Sokak No: 31-33<br />
-                      Yenimahalle, Ankara, Türkiye
+                      {{ address.line1 }}<br />
+                      {{ address.line2 }}
                     </p>
                   </div>
                 </div>
@@ -40,11 +40,8 @@
                   <div>
                     <p class="mb-1 md:mb-2 text-sm md:text-base font-semibold text-[rgb(39,45,122)]">Telefon</p>
                     <div class="space-y-1">
-                      <a href="tel:+903123123625" class="block text-xs md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
-                        +90 312 312 36 25
-                      </a>
-                      <a href="tel:+903123855060" class="block text-xs md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
-                        +90 312 385 50 60
+                      <a v-for="phone in phones" :key="phone.href" :href="phone.href" class="block text-xs md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
+                        {{ phone.display }}
                       </a>
                     </div>
                   </div>
@@ -55,8 +52,8 @@
                   </div>
                   <div>
                     <p class="mb-1 md:mb-2 text-sm md:text-base font-semibold text-[rgb(39,45,122)]">E-posta</p>
-                    <a href="mailto:info@emakyapi.com.tr" class="text-xs md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)] break-all">
-                      info@emakyapi.com.tr
+                    <a :href="email.href" class="text-xs md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)] break-all">
+                      {{ email.display }}
                     </a>
                   </div>
                 </div>
@@ -65,10 +62,10 @@
 
             <!-- Social Media -->
             <div>
-              <h3 class="mb-4 md:mb-6 text-lg md:text-xl font-semibold text-[rgb(39,45,122)]">Sosyal Medya</h3>
+              <h3 class="mb-4 md:mb-6 text-lg md:text-xl font-semibold text-[rgb(39,45,122)]">{{ socialHeading }}</h3>
               <div class="flex gap-3 md:gap-4">
                 <a
-                  href="https://www.instagram.com/emak.yapi"
+                  :href="social.instagram"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white transition-all hover:bg-[rgb(39,45,122)] hover:text-white hover:shadow-lg active:scale-95"
@@ -77,7 +74,7 @@
                   <Instagram :size="20" class="md:w-[22px] md:h-[22px]" />
                 </a>
                 <a
-                  href="https://linkedin.com/company/emakyapi"
+                  :href="social.linkedin"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white transition-all hover:bg-[rgb(39,45,122)] hover:text-white hover:shadow-lg active:scale-95"
@@ -86,7 +83,7 @@
                   <Linkedin :size="20" class="md:w-[22px] md:h-[22px]" />
                 </a>
                 <a
-                  href="https://www.facebook.com/emakyapi"
+                  :href="social.facebook"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white transition-all hover:bg-[rgb(39,45,122)] hover:text-white hover:shadow-lg active:scale-95"
@@ -95,7 +92,7 @@
                   <Facebook :size="20" class="md:w-[22px] md:h-[22px]" />
                 </a>
                 <a
-                  href="https://wa.me/905331232225"
+                  :href="social.whatsapp"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-lg md:rounded-xl border border-[rgb(178,178,178)]/20 bg-white transition-all hover:bg-[#25D366] hover:text-white hover:shadow-lg active:scale-95"
@@ -108,11 +105,11 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Map Section -->
           <div class="h-[400px] md:h-[500px] lg:h-full min-h-[450px] rounded-xl md:rounded-2xl border border-[rgb(178,178,178)]/20 bg-white p-2 shadow-lg overflow-hidden">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d510.15175!2d32.7526497!3d39.9562952!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d349ad763cec9f%3A0xb83d86d01a9e913!2sEMAK%20YAPI!5e0!3m2!1str!2str!4v1705575900000!5m2!1str!2str"
+              :src="googleMapsEmbed"
               class="w-full h-full rounded-lg md:rounded-xl"
               style="border:0;"
               :allowfullscreen="true"
@@ -128,4 +125,17 @@
 
 <script setup lang="ts">
 import { MapPin, Phone, Mail, Instagram, Linkedin, Facebook } from 'lucide-vue-next';
+
+defineProps<{
+  sectionBadge: string;
+  sectionHeading: string;
+  sectionDescription: string;
+  infoHeading: string;
+  address: { line1: string; line2: string };
+  phones: { display: string; href: string }[];
+  email: { display: string; href: string };
+  socialHeading: string;
+  social: { instagram: string; linkedin: string; facebook: string; whatsapp: string };
+  googleMapsEmbed: string;
+}>();
 </script>

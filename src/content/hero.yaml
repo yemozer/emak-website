@@ -1,0 +1,10 @@
+heading: "Emak Yapı"
+tagline: "Türkiye'nin Yapı Malzemeleri Mağazası"
+description: "İnşaat projelerinize toptan ürün tedariği sağlayan güvenilir çözüm ortağınız. Geniş ürün yelpazesi, hızlı sevkiyat ve uzman desteği ile yanınızdayız."
+cta_primary_text: "Ürün Kataloğu"
+cta_primary_link: "https://katalog.emakyapi.revleno.com/"
+cta_primary_external: true
+cta_secondary_text: "Hemen İletişime Geçin"
+cta_secondary_text_mobile: "İletişim"
+cta_secondary_link: "/iletisim"
+video_path: "/emak_hero_video.mp4"

@@ -1,0 +1,28 @@
+company_name: "Emak Yapı"
+company_description: "Türkiye'nin yapı malzemeleri mağazası. İnşaat projelerinize toptan ürün tedariği sağlayan güvenilir çözüm ortağınız."
+logo: "/emak-logo.png"
+quick_links_heading: "Hızlı Linkler"
+quick_links:
+  - label: "Hakkımızda"
+    href: "/hakkimizda"
+    external: false
+  - label: "Dokümanlar"
+    href: "/dokumanlar"
+    external: false
+  - label: "Ürünler"
+    href: "/#urunler"
+    external: false
+  - label: "Hizmetler"
+    href: "/#hizmetler"
+    external: false
+  - label: "Galeri"
+    href: "/galeri"
+    external: false
+  - label: "İletişim"
+    href: "/iletisim"
+    external: false
+  - label: "Kariyer"
+    href: "https://www.kariyer.net/firma-profil/emak-yapi-malzemeleri-160860-85579"
+    external: true
+contact_heading: "İletişim"
+copyright: "Emak Yapı Malzemeleri Ltd. Şti. Tüm hakları saklıdır."
