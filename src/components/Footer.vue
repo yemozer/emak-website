@@ -83,6 +83,11 @@
               </a>
             </li>
             <li>
+              <a href="/galeri" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
+                Galeri
+              </a>
+            </li>
+            <li>
               <a href="/iletisim" class="text-[10px] md:text-sm text-[rgb(178,178,178)] transition-colors hover:text-[rgb(39,45,122)]">
                 İletişim
               </a>

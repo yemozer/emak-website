@@ -1,0 +1,49 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
+import Gallery from "../components/Gallery.vue";
+import CTA from "../components/CTA.vue";
+---
+
+<Layout
+    title="Galeri"
+    description="Emak Yapı depo, bina ve ürün görselleri. Ankara'daki tesislerimizi keşfedin."
+>
+    <Navbar client:load />
+
+    <main class="pt-20">
+        <section
+            class="relative overflow-hidden bg-[rgb(39,45,122)] py-16 md:py-24"
+        >
+            <!-- Background pattern/gradient -->
+            <div class="absolute inset-0 opacity-10">
+                <div
+                    class="absolute -left-1/4 -top-1/4 h-full w-full rounded-full bg-white blur-3xl"
+                >
+                </div>
+                <div
+                    class="absolute -right-1/4 -bottom-1/4 h-full w-full rounded-full bg-white blur-3xl"
+                >
+                </div>
+            </div>
+
+            <div
+                class="container relative z-10 mx-auto px-4 text-center text-white"
+            >
+                <h1 class="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
+                    Galeri
+                </h1>
+                <p class="mx-auto max-w-2xl text-lg text-white/80 md:text-xl">
+                    Depolarımız, tesislerimiz ve ürünlerimizden görüntüler
+                </p>
+            </div>
+        </section>
+
+        <Gallery client:load />
+
+        <CTA client:load />
+    </main>
+
+    <Footer client:load />
+</Layout>

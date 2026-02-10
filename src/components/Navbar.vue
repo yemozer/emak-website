@@ -22,7 +22,7 @@
         </a>
         
         <!-- Desktop Navigation -->
-        <div class="hidden lg:flex lg:items-center lg:gap-8 absolute left-1/2 transform -translate-x-1/2">
+        <div class="hidden lg:flex lg:items-center lg:gap-6 absolute left-1/2 transform -translate-x-1/2">
           <template v-for="item in navItems" :key="item.href">
             <a
               v-if="item.external || !isCurrentPage(item.href)"
@@ -184,6 +184,7 @@ const navItems: NavItem[] = [
   { label: 'Hakkımızda', href: '/hakkimizda' },
   { label: 'Dokümanlar', href: '/dokumanlar' },
   { label: 'Hesap Tabloları', href: '/hesap-tablolari' },
+  { label: 'Galeri', href: '/galeri' },
   { label: 'Kariyer', href: 'https://www.kariyer.net/firma-profil/emak-yapi-malzemeleri-160860-85579', external: true },
   { label: 'İletişim', href: '/iletisim' },
 ];
