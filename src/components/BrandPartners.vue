@@ -11,9 +11,13 @@
       </div>
 
       <div class="flex flex-wrap justify-center gap-2 md:gap-3 lg:gap-4">
-        <div
+        <component
+          :is="brand.url ? 'a' : 'div'"
           v-for="brand in brands"
           :key="brand.name"
+          :href="brand.url || undefined"
+          :target="brand.url ? '_blank' : undefined"
+          :rel="brand.url ? 'noopener noreferrer' : undefined"
           class="group relative flex items-center justify-center rounded-lg border border-[rgb(178,178,178)]/20 bg-white p-2 md:p-3.5 lg:p-4.5 shadow-sm transition-all hover:shadow-xl hover:scale-105 hover:border-[rgb(39,45,122)]/40 active:scale-95 overflow-hidden w-[calc(33.33%-0.5rem)] sm:w-[calc(25%-0.75rem)] md:w-[calc(20%-1rem)] lg:w-[calc(16.666%-1rem)] min-w-[100px] md:min-w-[140px]"
         >
           <!-- Gradient overlay on hover -->
@@ -26,7 +30,7 @@
             @error="handleImageError"
           />
           <span v-else class="relative z-10 text-center text-[9px] md:text-[10px] lg:text-xs font-semibold text-[rgb(39,45,122)] leading-tight px-0.5 group-hover:text-gradient-primary transition-all">{{ brand.name }}</span>
-        </div>
+        </component>
       </div>
     </div>
   </section>
@@ -36,7 +40,7 @@
 defineProps<{
   sectionHeading: string;
   sectionDescription: string;
-  brands: { name: string; logo: string }[];
+  brands: { name: string; logo: string; url: string }[];
 }>();
 
 const handleImageError = (event: Event) => {

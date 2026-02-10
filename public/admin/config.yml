@@ -144,6 +144,7 @@ collections:
             fields:
               - { name: name, label: "Marka Adı", widget: string }
               - { name: logo, label: "Logo", widget: image, media_folder: "/public/brands", public_folder: "/brands" }
+              - { name: url, label: "Web Sitesi", widget: string, required: false, hint: "Markanın web sitesi (ör: https://www.knauf.com.tr)" }
 
   # ============================================
   # CTA (Harekete Geçirme)

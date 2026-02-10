@@ -99,6 +99,7 @@ export type ProductsContent = {
 export type Brand = {
   name: string;
   logo: string;
+  url: string;
 };
 
 export type BrandsContent = {
