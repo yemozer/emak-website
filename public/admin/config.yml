@@ -95,7 +95,7 @@ collections:
   # ÜRÜN KATEGORİLERİ
   # ============================================
   - name: products
-    label: "Ana Sayfa - Ürünler"
+    label: "Ana Sayfa - Ürün Gruplari"
     files:
       - name: products
         label: "Ürünler Bölümü"
