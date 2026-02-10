@@ -5,7 +5,7 @@ brands:
     logo: /brands/abs-logo.png
     url: https://katalog.emakyapi.revleno.com/catalog?brands=dbe77e95-360c-448c-be84-cbba3a2af0f1
   - name: AKFİX
-    logo: /brands/akfix-logo.png
+    logo: /brands/akfix_logo.png
     url: ""
   - name: ARAGONIT
     logo: /brands/aragonit-logo.png
