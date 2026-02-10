@@ -1,69 +1,69 @@
-section_heading: "Çözüm Ortaklarımız"
-section_description: "Dünya çapında tanınmış markalarla çalışıyoruz"
+section_heading: Çözüm Ortaklarımız
+section_description: Dünya çapında tanınmış markalarla çalışıyoruz
 brands:
-  - name: "ABS"
-    logo: "/brands/abs-logo.png"
+  - name: ABS
+    logo: /brands/abs-logo.png
+    url: https://katalog.emakyapi.revleno.com/catalog?brands=dbe77e95-360c-448c-be84-cbba3a2af0f1
+  - name: AKFİX
+    logo: /brands/akfix-logo.png
     url: ""
-  - name: "AKFİX"
-    logo: "/brands/akfix-logo.png"
+  - name: ARAGONIT
+    logo: /brands/aragonit-logo.png
     url: ""
-  - name: "ARAGONIT"
-    logo: "/brands/aragonit-logo.png"
+  - name: AUSTROTHERM
+    logo: /brands/austrotherm-logo.png
     url: ""
-  - name: "AUSTROTHERM"
-    logo: "/brands/austrotherm-logo.png"
+  - name: BOSTIK
+    logo: /brands/bostik-logo.png
     url: ""
-  - name: "BOSTIK"
-    logo: "/brands/bostik-logo.png"
+  - name: DALSAN
+    logo: /brands/dalsan-logo.png
     url: ""
-  - name: "DALSAN"
-    logo: "/brands/dalsan-logo.png"
+  - name: ENTEGRE
+    logo: /brands/entegre-logo.png
     url: ""
-  - name: "ENTEGRE"
-    logo: "/brands/entegre-logo.png"
+  - name: FİXA
+    logo: /brands/fixa-logo.png
     url: ""
-  - name: "FİXA"
-    logo: "/brands/fixa-logo.png"
+  - name: İZOCAM
+    logo: /brands/izocam-logo.png
     url: ""
-  - name: "İZOCAM"
-    logo: "/brands/izocam-logo.png"
+  - name: KILIÇOĞLU
+    logo: /brands/kilicoglu-logo.png
     url: ""
-  - name: "KILIÇOĞLU"
-    logo: "/brands/kilicoglu-logo.png"
+  - name: KNAUF
+    logo: /brands/knauf-logo.png
     url: ""
-  - name: "KNAUF"
-    logo: "/brands/knauf-logo.png"
+  - name: MARMARA ÇİMENTO
+    logo: /brands/marmara-logo.png
     url: ""
-  - name: "MARMARA ÇİMENTO"
-    logo: "/brands/marmara-logo.png"
+  - name: MARSHALL
+    logo: /brands/marshall-logo.png
     url: ""
-  - name: "MARSHALL"
-    logo: "/brands/marshall-logo.png"
+  - name: MEGARON
+    logo: /brands/megaron-logo.png
     url: ""
-  - name: "MEGARON"
-    logo: "/brands/megaron-logo.png"
+  - name: NETBİMS
+    logo: /brands/netbims.png
     url: ""
-  - name: "NETBİMS"
-    logo: "/brands/netbims.png"
+  - name: NULLIFIRE
+    logo: /brands/nullifire-logo.png
     url: ""
-  - name: "NULLIFIRE"
-    logo: "/brands/nullifire-logo.png"
+  - name: ODE
+    logo: /brands/ode-logo.png
     url: ""
-  - name: "ODE"
-    logo: "/brands/ode-logo.png"
+  - name: PANELSAN
+    logo: /brands/panelsan-logo.png
     url: ""
-  - name: "PANELSAN"
-    logo: "/brands/panelsan-logo.png"
+  - name: QİS
+    logo: /brands/qis-logo.png
     url: ""
-  - name: "QİS"
-    logo: "/brands/qis-logo.png"
+  - name: TEPE
+    logo: /brands/tepe-logo.png
     url: ""
-  - name: "TEPE"
-    logo: "/brands/tepe-logo.png"
+  - name: WALLBOARD
+    logo: /brands/wallboard-logo.png
     url: ""
-  - name: "WALLBOARD"
-    logo: "/brands/wallboard-logo.png"
-    url: ""
-  - name: "WEBER"
-    logo: "/brands/weber-logo.png"
+  - name: WEBER
+    logo: /brands/weber-logo.png
     url: ""
