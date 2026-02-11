@@ -18,7 +18,7 @@ brands:
     url: ""
   - name: DALSAN
     logo: /brands/dalsan-logo.png
-    url: ""
+    url: https://katalog.emakyapi.revleno.com/catalog?brands=3b2fc052-bcf3-4eb8-9094-0611ae25a352
   - name: ENTEGRE
     logo: /brands/entegre-logo.png
     url: ""
