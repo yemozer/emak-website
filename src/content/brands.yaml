@@ -53,7 +53,7 @@ brands:
     logo: /brands/ode-logo.png
     url: https://katalog.emakyapi.revleno.com/catalog?brands=4ff63a05-972a-4f13-b553-910d67d294cf
   - name: PANELSAN
-    logo: /brands/panelsan-logo.png
+    logo: /brands/panelsan.png
     url: https://katalog.emakyapi.revleno.com/catalog?brands=19a4f7df-65b9-41c7-8c84-36018e32e926
   - name: QİS
     logo: /brands/qis-logo.png
