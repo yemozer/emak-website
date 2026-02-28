@@ -1,10 +1,13 @@
-badge: "Hakkımızda"
-heading: "Depo ve Sevkiyat Merkezimiz"
-paragraph_1: "Ankara'da <strong class=\"text-[rgb(39,45,122)]\">Ulus ve Ostim</strong>'deki satış ve depo noktalarımızla müşterilerimize sürekli stok, hızlı ve güvenilir ürün sevkiyatıyla hizmet vermekteyiz."
-paragraph_2: "Geniş ürün yelpazemiz, hızlı sevkiyat ağımız ve uzman ekibimiz ile projelerinizin güvenilir çözüm ortağıyız."
-cta_text: "Hakkımızda"
-cta_link: "/hakkimizda"
+badge: Hakkımızda
+heading: Depo ve Sevkiyat Merkezimiz
+paragraph_1: Ankara'da <strong class="text-[rgb(39,45,122)]">Kazan ve
+  Ostim</strong>'deki satış ve depo noktalarımızla müşterilerimize sürekli stok,
+  hızlı ve güvenilir ürün sevkiyatıyla hizmet vermekteyiz.
+paragraph_2: Geniş ürün yelpazemiz, hızlı sevkiyat ağımız ve uzman ekibimiz ile
+  projelerinizin güvenilir çözüm ortağıyız.
+cta_text: Hakkımızda
+cta_link: /hakkimizda
 image:
-  src: "/images/about/emak-yapi-full.jpg"
-  alt: "Emak Yapı deposu ve sevkiyat merkezi"
-  caption: "Sürekli stok ve hızlı sevkiyat altyapısı"
+  src: /images/about/emak-yapi-full.jpg
+  alt: Emak Yapı deposu ve sevkiyat merkezi
+  caption: Sürekli stok ve hızlı sevkiyat altyapısı
