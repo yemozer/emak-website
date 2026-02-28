@@ -6,9 +6,8 @@ backend:
 
 locale: tr
 
-# Media library is hidden - each collection uses its own media folder
-# media_folder: public/images
-# public_folder: /images
+media_folder: public/images
+public_folder: /images
 
 collections:
   # ============================================
