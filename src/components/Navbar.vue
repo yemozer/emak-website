@@ -24,8 +24,49 @@
         <!-- Desktop Navigation -->
         <div class="hidden lg:flex lg:items-center lg:gap-6 absolute left-1/2 transform -translate-x-1/2">
           <template v-for="item in navItems" :key="item.href">
+            <div
+              v-if="item.children && item.children.length"
+              class="group relative"
+            >
+              <span
+                class="relative text-sm font-medium transition-colors cursor-pointer inline-flex items-center gap-1"
+                :class="[
+                  shouldShowTransparent && !scrolled
+                    ? 'text-white hover:text-white/80'
+                    : 'text-[rgb(39,45,122)] hover:text-[rgb(39,45,122)]/70',
+                  isChildActive(item) ? 'font-semibold' : ''
+                ]"
+              >
+                {{ item.label }}
+                <svg class="h-3 w-3 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                <span
+                  class="absolute -bottom-1 left-0 h-0.5 transition-all duration-300"
+                  :class="[
+                    isChildActive(item) ? 'w-full' : 'w-0 group-hover:w-full',
+                    shouldShowTransparent && !scrolled ? 'bg-white' : 'bg-[rgb(39,45,122)]'
+                  ]"
+                ></span>
+              </span>
+              <div
+                class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50"
+              >
+                <div class="min-w-[200px] rounded-lg bg-white shadow-xl border border-gray-100 py-2">
+                  <a
+                    v-for="child in item.children"
+                    :key="child.href"
+                    :href="child.href"
+                    :target="child.external ? '_blank' : undefined"
+                    :rel="child.external ? 'noopener noreferrer' : undefined"
+                    class="block px-4 py-2.5 text-sm text-[rgb(39,45,122)] hover:bg-[rgb(39,45,122)]/10 transition-colors whitespace-nowrap"
+                    :class="isCurrentPage(child.href) ? 'font-semibold bg-[rgb(39,45,122)]/5' : ''"
+                  >
+                    {{ child.label }}
+                  </a>
+                </div>
+              </div>
+            </div>
             <a
-              v-if="item.external || !isCurrentPage(item.href)"
+              v-else-if="item.external || !isCurrentPage(item.href)"
               :href="item.href"
               :target="item.external ? '_blank' : undefined"
               :rel="item.external ? 'noopener noreferrer' : undefined"
@@ -127,8 +168,24 @@
       >
         <div class="container mx-auto flex flex-col gap-1 px-6 py-4">
           <template v-for="item in navItems" :key="item.href">
+            <template v-if="item.children && item.children.length">
+              <div class="px-4 py-2 text-xs font-bold uppercase tracking-wide text-[rgb(39,45,122)]/60">
+                {{ item.label }}
+              </div>
+              <a
+                v-for="child in item.children"
+                :key="child.href"
+                :href="child.href"
+                :target="child.external ? '_blank' : undefined"
+                :rel="child.external ? 'noopener noreferrer' : undefined"
+                @click="mobileMenuOpen = false"
+                class="rounded-lg pl-8 pr-4 py-3 text-base font-medium text-[rgb(39,45,122)] transition-colors hover:bg-[rgb(39,45,122)]/10"
+              >
+                {{ child.label }}
+              </a>
+            </template>
             <a
-              v-if="item.external || !isCurrentPage(item.href)"
+              v-else-if="item.external || !isCurrentPage(item.href)"
               :href="item.href"
               :target="item.external ? '_blank' : undefined"
               :rel="item.external ? 'noopener noreferrer' : undefined"
@@ -174,8 +231,10 @@ const mobileMenuOpen = ref(false);
 const shouldShowTransparent = ref(false);
 const currentPath = ref('');
 
+type NavItem = { label: string; href: string; external: boolean; children?: NavItem[] };
+
 defineProps<{
-  navItems: { label: string; href: string; external: boolean }[];
+  navItems: NavItem[];
   b2bButtonText: string;
   b2bButtonLink: string;
   ctaButtonText: string;
@@ -190,6 +249,10 @@ const isCurrentPage = (href: string) => {
   }
 
   return currentPath.value === href;
+};
+
+const isChildActive = (item: NavItem) => {
+  return item.children?.some((c) => isCurrentPage(c.href)) ?? false;
 };
 
 const handleScroll = () => {

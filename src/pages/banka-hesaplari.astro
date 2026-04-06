@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.vue';
+import BankAccounts from '../components/BankAccounts.vue';
+import Footer from '../components/Footer.vue';
+
+import {
+  navigationContent,
+  bankAccountsContent,
+  footerContent,
+  contactContent,
+} from '../content/loaders';
+---
+
+<Layout>
+  <Navbar
+    client:load
+    navItems={navigationContent.nav_items}
+    b2bButtonText={navigationContent.b2b_button_text}
+    b2bButtonLink={navigationContent.b2b_button_link}
+    ctaButtonText={navigationContent.cta_button_text}
+    ctaButtonLink={navigationContent.cta_button_link}
+  />
+  <BankAccounts
+    client:load
+    pageHeading={bankAccountsContent.page_heading}
+    pageDescription={bankAccountsContent.page_description}
+    accountHolder={bankAccountsContent.account_holder}
+    accounts={bankAccountsContent.accounts}
+  />
+  <Footer
+    client:load
+    companyName={footerContent.company_name}
+    companyDescription={footerContent.company_description}
+    logo={footerContent.logo}
+    quickLinksHeading={footerContent.quick_links_heading}
+    quickLinks={footerContent.quick_links}
+    contactHeading={footerContent.contact_heading}
+    copyright={footerContent.copyright}
+    address={contactContent.address}
+    phones={contactContent.phones}
+    email={contactContent.email}
+    social={contactContent.social}
+  />
+</Layout>

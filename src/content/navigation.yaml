@@ -1,7 +1,20 @@
 nav_items:
-  - label: Hakkımızda
+  - label: Kurumsal
     href: /hakkimizda
     external: false
+    children:
+      - label: Hakkımızda
+        href: /hakkimizda
+        external: false
+      - label: Şirket Bilgileri
+        href: /sirket-bilgileri
+        external: false
+      - label: Şubeler
+        href: /subeler
+        external: false
+      - label: Banka Hesapları
+        href: /banka-hesaplari
+        external: false
   - label: Dokümanlar
     href: /dokumanlar
     external: false

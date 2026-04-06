@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.vue';
+import Branches from '../components/Branches.vue';
+import Footer from '../components/Footer.vue';
+
+import {
+  navigationContent,
+  branchesContent,
+  footerContent,
+  contactContent,
+} from '../content/loaders';
+---
+
+<Layout>
+  <Navbar
+    client:load
+    navItems={navigationContent.nav_items}
+    b2bButtonText={navigationContent.b2b_button_text}
+    b2bButtonLink={navigationContent.b2b_button_link}
+    ctaButtonText={navigationContent.cta_button_text}
+    ctaButtonLink={navigationContent.cta_button_link}
+  />
+  <Branches
+    client:load
+    pageHeading={branchesContent.page_heading}
+    pageDescription={branchesContent.page_description}
+    branches={branchesContent.branches}
+  />
+  <Footer
+    client:load
+    companyName={footerContent.company_name}
+    companyDescription={footerContent.company_description}
+    logo={footerContent.logo}
+    quickLinksHeading={footerContent.quick_links_heading}
+    quickLinks={footerContent.quick_links}
+    contactHeading={footerContent.contact_heading}
+    copyright={footerContent.copyright}
+    address={contactContent.address}
+    phones={contactContent.phones}
+    email={contactContent.email}
+    social={contactContent.social}
+  />
+</Layout>

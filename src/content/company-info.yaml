@@ -1,0 +1,22 @@
+page_heading: Şirket Bilgileri
+page_description: Emak Yapı Malzemeleri Taahhüt İnşaat Nakliye Sanayi Ticaret Limited Şirketi resmi kurumsal bilgileri.
+sections:
+  - heading: Kurumsal
+    items:
+      - { label: Unvan, value: "Emak Yapı Malzemeleri Taahhüt İnşaat Nakliye Sanayi Ticaret Limited Şirketi", icon: Building2 }
+      - { label: Bağlı Bulunduğu Oda, value: "Ankara Ticaret Odası", icon: Landmark }
+      - { label: Ticari Sicil No, value: "384999", icon: FileText }
+      - { label: Mersis No, value: "0333 0771 8080 0011", icon: Hash }
+      - { label: Şirket Sermayesi, value: "100.000.000,00 TL", icon: Wallet }
+      - { label: Vergi Dairesi, value: "Ostim", icon: Building }
+      - { label: Vergi No, value: "333 077 1808", icon: Hash }
+  - heading: İletişim
+    items:
+      - { label: Sabit Telefonlar, value: "0 312 312 36 25 — 0 312 385 50 60", href: "tel:+903123123625" }
+      - { label: Cep Telefonları, value: "—" }
+      - { label: Faks, value: "—" }
+      - { label: Şirket E-posta, value: "info@emakyapi.com.tr", href: "mailto:info@emakyapi.com.tr" }
+      - { label: Satış E-posta, value: "satis@emakyapi.com.tr", href: "mailto:satis@emakyapi.com.tr" }
+      - { label: Muhasebe, value: "muhasebe@emakyapi.com.tr", href: "mailto:muhasebe@emakyapi.com.tr" }
+      - { label: KEP Adresi, value: "emakyapi@hs06.kep.tr", href: "mailto:emakyapi@hs06.kep.tr" }
+      - { label: Adres, value: "Ostim OSB Mahallesi 1569. Sokak No:33 Yenimahalle / ANKARA" }

@@ -291,10 +291,105 @@ collections:
               - { name: label, label: "Metin", widget: string }
               - { name: href, label: "Link", widget: string }
               - { name: external, label: "Dış Link mi?", widget: boolean, default: false }
+              - name: children
+                label: "Alt Menü Öğeleri"
+                widget: list
+                required: false
+                fields:
+                  - { name: label, label: "Metin", widget: string }
+                  - { name: href, label: "Link", widget: string }
+                  - { name: external, label: "Dış Link mi?", widget: boolean, default: false }
           - { name: b2b_button_text, label: "B2B Buton Metni", widget: string }
           - { name: b2b_button_link, label: "B2B Buton Linki", widget: string }
           - { name: cta_button_text, label: "CTA Buton Metni", widget: string }
           - { name: cta_button_link, label: "CTA Buton Linki", widget: string }
+
+  # ============================================
+  # ŞİRKET BİLGİLERİ
+  # ============================================
+  - name: company-info
+    label: "Kurumsal - Şirket Bilgileri"
+    files:
+      - name: company-info
+        label: "Şirket Bilgileri"
+        file: src/content/company-info.yaml
+        fields:
+          - { name: page_heading, label: "Sayfa Başlığı", widget: string }
+          - { name: page_description, label: "Sayfa Açıklaması", widget: text }
+          - name: sections
+            label: "Bölümler"
+            widget: list
+            fields:
+              - { name: heading, label: "Bölüm Başlığı", widget: string }
+              - name: items
+                label: "Bilgiler"
+                widget: list
+                fields:
+                  - { name: label, label: "Etiket", widget: string }
+                  - { name: value, label: "Değer", widget: string }
+                  - name: icon
+                    label: "İkon"
+                    widget: select
+                    required: false
+                    options:
+                      - { label: "Bina (Building2)", value: "Building2" }
+                      - { label: "Bina (Building)", value: "Building" }
+                      - { label: "Telefon", value: "Phone" }
+                      - { label: "Cep Telefonu", value: "Smartphone" }
+                      - { label: "Faks", value: "Printer" }
+                      - { label: "E-posta", value: "Mail" }
+                      - { label: "KEP/Kalkan", value: "ShieldCheck" }
+                      - { label: "Konum", value: "MapPin" }
+                      - { label: "Numara", value: "Hash" }
+                      - { label: "Cüzdan", value: "Wallet" }
+                      - { label: "Belge", value: "FileText" }
+                      - { label: "Kurum", value: "Landmark" }
+                  - { name: href, label: "Link (opsiyonel)", widget: string, required: false }
+
+  # ============================================
+  # ŞUBELER
+  # ============================================
+  - name: branches
+    label: "Kurumsal - Şubeler"
+    files:
+      - name: branches
+        label: "Şubeler"
+        file: src/content/branches.yaml
+        fields:
+          - { name: page_heading, label: "Sayfa Başlığı", widget: string }
+          - { name: page_description, label: "Sayfa Açıklaması", widget: text }
+          - name: branches
+            label: "Şubeler"
+            widget: list
+            fields:
+              - { name: name, label: "Şube Adı", widget: string }
+              - { name: company, label: "Şirket", widget: string }
+              - { name: type, label: "Tür (Şube/Depo)", widget: string }
+              - { name: address, label: "Adres", widget: text }
+              - { name: phone, label: "Telefon", widget: string, required: false }
+              - { name: image, label: "Görsel", widget: image, required: false, media_folder: "/public/images/branches", public_folder: "/images/branches" }
+              - { name: google_maps_embed, label: "Google Maps Embed URL", widget: string, required: false, hint: "iletisim sayfasındaki gibi embed URL" }
+              - { name: maps_link, label: "Google Maps Linki (Yol Tarifi)", widget: string, required: false }
+
+  # ============================================
+  # BANKA HESAPLARI
+  # ============================================
+  - name: bank-accounts
+    label: "Kurumsal - Banka Hesapları"
+    files:
+      - name: bank-accounts
+        label: "Banka Hesapları"
+        file: src/content/bank-accounts.yaml
+        fields:
+          - { name: page_heading, label: "Sayfa Başlığı", widget: string }
+          - { name: page_description, label: "Sayfa Açıklaması", widget: text }
+          - { name: account_holder, label: "Hesap Sahibi (Ünvan)", widget: string }
+          - name: accounts
+            label: "Hesaplar"
+            widget: list
+            fields:
+              - { name: bank, label: "Banka Adı", widget: string }
+              - { name: iban, label: "IBAN", widget: string }
 
   # ============================================
   # FOOTER

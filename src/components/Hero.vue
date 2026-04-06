@@ -7,7 +7,7 @@
       loop
       playsinline
       preload="auto"
-      :poster="videoPath.replace('.mp4', '_poster.jpg')"
+      poster="/emak_hero_poster.jpg"
       class="absolute inset-0 h-full w-full object-cover"
     >
       <source :src="videoPath" type="video/mp4" />

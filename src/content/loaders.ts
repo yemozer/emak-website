@@ -10,6 +10,9 @@ import galleryYaml from './gallery.yaml?raw';
 import contactYaml from './contact.yaml?raw';
 import ctaYaml from './cta.yaml?raw';
 import navigationYaml from './navigation.yaml?raw';
+import companyInfoYaml from './company-info.yaml?raw';
+import branchesYaml from './branches.yaml?raw';
+import bankAccountsYaml from './bank-accounts.yaml?raw';
 import footerYaml from './footer.yaml?raw';
 import seoYaml from './seo.yaml?raw';
 
@@ -160,6 +163,7 @@ export type NavItem = {
   label: string;
   href: string;
   external: boolean;
+  children?: NavItem[];
 };
 
 export type NavigationContent = {
@@ -168,6 +172,53 @@ export type NavigationContent = {
   b2b_button_link: string;
   cta_button_text: string;
   cta_button_link: string;
+};
+
+export type CompanyInfoItem = {
+  label: string;
+  value: string;
+  icon?: string;
+  href?: string;
+};
+
+export type CompanyInfoSection = {
+  heading: string;
+  items: CompanyInfoItem[];
+};
+
+export type CompanyInfoContent = {
+  page_heading: string;
+  page_description: string;
+  sections: CompanyInfoSection[];
+};
+
+export type Branch = {
+  name: string;
+  company: string;
+  type: string;
+  address: string;
+  phone?: string;
+  image?: string;
+  google_maps_embed?: string;
+  maps_link?: string;
+};
+
+export type BranchesContent = {
+  page_heading: string;
+  page_description: string;
+  branches: Branch[];
+};
+
+export type BankAccount = {
+  bank: string;
+  iban: string;
+};
+
+export type BankAccountsContent = {
+  page_heading: string;
+  page_description: string;
+  account_holder: string;
+  accounts: BankAccount[];
 };
 
 export type FooterLink = {
@@ -215,5 +266,8 @@ export const galleryContent = load<GalleryContent>(galleryYaml);
 export const contactContent = load<ContactContent>(contactYaml);
 export const ctaContent = load<CTAContent>(ctaYaml);
 export const navigationContent = load<NavigationContent>(navigationYaml);
+export const companyInfoContent = load<CompanyInfoContent>(companyInfoYaml);
+export const branchesContent = load<BranchesContent>(branchesYaml);
+export const bankAccountsContent = load<BankAccountsContent>(bankAccountsYaml);
 export const footerContent = load<FooterContent>(footerYaml);
 export const seoContent = load<SeoContent>(seoYaml);
