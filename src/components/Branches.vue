@@ -16,50 +16,55 @@
           :key="idx"
           class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-200"
         >
-          <!-- Map -->
-          <div class="relative h-56 bg-gray-100 border-b border-gray-100">
-            <iframe
-              v-if="branch.google_maps_embed"
-              :src="branch.google_maps_embed"
-              class="w-full h-full"
-              style="border:0;"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-            <div v-else class="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-              Harita mevcut değil
-            </div>
+          <!-- Image -->
+          <div v-if="branch.image" class="h-56 border-b border-gray-100 overflow-hidden">
+            <img :src="branch.image" :alt="branch.name" class="w-full h-full object-cover" />
           </div>
 
-          <!-- Info -->
-          <div class="p-5">
-            <h3 class="text-lg font-bold text-[rgb(39,45,122)] mb-2">
-              {{ branch.name }}
-            </h3>
-            <div class="flex items-start gap-2 text-gray-600 mb-3">
-              <MapPin class="w-4 h-4 mt-0.5 flex-shrink-0 text-[rgb(39,45,122)]" />
-              <p class="text-sm leading-relaxed">{{ branch.address }}</p>
+          <!-- Bottom: Info | Map -->
+          <div class="grid grid-cols-2">
+            <div class="p-5 border-r border-gray-100 flex flex-col">
+              <h3 class="text-lg font-bold text-[rgb(39,45,122)] mb-2">
+                {{ branch.name }}
+              </h3>
+              <div class="flex items-start gap-2 text-gray-600 mb-3 flex-1">
+                <MapPin class="w-4 h-4 mt-0.5 flex-shrink-0 text-[rgb(39,45,122)]" />
+                <p class="text-sm leading-relaxed">{{ branch.address }}</p>
+              </div>
+              <div class="flex items-center gap-4 flex-wrap">
+                <a
+                  v-if="branch.phone"
+                  :href="`tel:${branch.phone}`"
+                  class="inline-flex items-center gap-1.5 text-xs font-semibold text-[rgb(39,45,122)] hover:underline"
+                >
+                  <Phone class="w-3.5 h-3.5" />
+                  {{ branch.phone }}
+                </a>
+                <a
+                  v-if="branch.maps_link"
+                  :href="branch.maps_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 text-xs font-semibold text-[rgb(39,45,122)] hover:gap-2 transition-all ml-auto"
+                >
+                  Yol Tarifi
+                  <ArrowRight class="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
-            <div class="flex items-center gap-4">
-              <a
-                v-if="branch.phone"
-                :href="`tel:${branch.phone}`"
-                class="inline-flex items-center gap-1.5 text-xs font-semibold text-[rgb(39,45,122)] hover:underline"
-              >
-                <Phone class="w-3.5 h-3.5" />
-                {{ branch.phone }}
-              </a>
-              <a
-                v-if="branch.maps_link"
-                :href="branch.maps_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1 text-xs font-semibold text-[rgb(39,45,122)] hover:gap-2 transition-all ml-auto"
-              >
-                Yol Tarifi
-                <ArrowRight class="w-3.5 h-3.5" />
-              </a>
+            <div class="bg-gray-100 min-h-[180px]">
+              <iframe
+                v-if="branch.google_maps_embed"
+                :src="branch.google_maps_embed"
+                class="w-full h-full"
+                style="border:0;"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+              <div v-else class="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                Harita yok
+              </div>
             </div>
           </div>
         </div>

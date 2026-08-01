@@ -13,18 +13,11 @@
       <source :src="videoPath" type="video/mp4" />
     </video>
 
-    <!-- Enhanced Gradient Overlay with better contrast -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[rgb(39,45,122)]/85 via-[rgb(39,45,122)]/75 to-[rgb(39,45,122)]/85"></div>
+    <!-- Neutral scrim: dark at the edges for nav/CTAs, nearly clear in the middle so the video's colors show through -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-black/60"></div>
 
-    <!-- Animated gradient overlay for depth -->
-    <div class="absolute inset-0 bg-animated-gradient opacity-15"></div>
-
-    <!-- Additional overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/15"></div>
-
-    <!-- Decorative gradient orbs -->
-    <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-[rgb(59,70,180)]/20 rounded-full blur-3xl animate-float"></div>
-    <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-[rgb(79,90,200)]/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+    <!-- Soft vignette behind the centered text to keep it readable on bright frames -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 75% 55% at 50% 55%, rgba(0, 0, 0, 0.35), transparent 70%);"></div>
 
     <!-- Content -->
     <div class="relative z-10 flex h-full items-center justify-center pt-16 md:pt-20">

@@ -73,6 +73,7 @@ export type AboutPreviewContent = {
 export type ServiceItem = {
   name: string;
   icon: string;
+  color?: string;
   description: string;
   href: string;
   external: boolean;
@@ -88,6 +89,7 @@ export type ServicesContent = {
 export type ProductCategory = {
   name: string;
   icon: string;
+  color?: string;
   description: string;
 };
 

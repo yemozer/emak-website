@@ -14,21 +14,19 @@
         <div
           v-for="(acc, idx) in accounts"
           :key="idx"
-          class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-5 py-4"
+          class="flex items-center gap-4 px-5 py-4"
         >
-          <div class="text-base font-semibold text-[rgb(39,45,122)] sm:w-40 sm:flex-shrink-0">
+          <div class="text-base font-semibold text-[rgb(39,45,122)] flex-1 min-w-0">
             {{ acc.bank }}
           </div>
-          <div class="flex-1 flex items-center justify-between gap-3 min-w-0">
-            <div class="text-sm font-mono text-gray-900 break-all">{{ acc.iban }}</div>
-            <button
-              type="button"
-              @click="copy(acc.iban, idx)"
-              class="text-xs font-semibold text-[rgb(39,45,122)] hover:underline flex-shrink-0"
-            >
-              {{ copiedIdx === idx ? '✓' : 'Kopyala' }}
-            </button>
-          </div>
+          <div class="text-sm tracking-wider text-gray-700 text-right flex-shrink-0">{{ acc.iban }}</div>
+          <button
+            type="button"
+            @click="copy(acc.iban, idx)"
+            class="text-xs font-semibold text-[rgb(39,45,122)] hover:underline flex-shrink-0"
+          >
+            {{ copiedIdx === idx ? '✓' : 'Kopyala' }}
+          </button>
         </div>
       </div>
     </div>

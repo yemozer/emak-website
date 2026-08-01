@@ -26,19 +26,12 @@
             :href="catalogLink"
             class="group relative overflow-hidden rounded-xl border border-[rgb(178,178,178)]/20 bg-white p-6 shadow-sm hover:shadow-xl transition-all hover:border-[rgb(39,45,122)]/40 cursor-pointer hover:-translate-y-1"
           >
-            <!-- Gradient overlay -->
-            <div class="absolute inset-0 bg-gradient-to-br from-[rgb(39,45,122)]/5 via-transparent to-[rgb(59,70,180)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-            <!-- Icon with enhanced styling -->
-            <div class="relative mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[rgb(39,45,122)]/10 to-[rgb(39,45,122)]/5 transition-all group-hover:bg-gradient-to-br group-hover:from-[rgb(39,45,122)]/20 group-hover:to-[rgb(59,70,180)]/10 group-hover:scale-110 group-hover:shadow-glow">
-              <component :is="category.iconComponent" :size="28" class="text-[rgb(39,45,122)] transition-transform group-hover:scale-110" />
+            <div class="mb-4">
+              <component :is="category.iconComponent" :size="32" :style="{ color: category.accent }" class="transition-transform duration-300 group-hover:scale-110" />
             </div>
 
-            <h4 class="relative text-lg font-semibold text-[rgb(39,45,122)] mb-2 group-hover:text-gradient-primary transition-all">{{ category.name }}</h4>
-            <p class="relative text-sm text-[rgb(178,178,178)] leading-relaxed group-hover:text-gray-600 transition-colors">{{ category.description }}</p>
-
-            <!-- Bottom accent line -->
-            <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[rgb(39,45,122)] to-[rgb(59,70,180)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+            <h4 class="text-lg font-semibold text-[rgb(39,45,122)] mb-2">{{ category.name }}</h4>
+            <p class="text-sm text-[rgb(178,178,178)] leading-relaxed group-hover:text-gray-600 transition-colors">{{ category.description }}</p>
           </a>
         </div>
       </div>
@@ -49,19 +42,21 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { iconMap } from '../lib/icon-map';
+import { resolveAccent } from '../lib/accent-colors';
 
 const props = defineProps<{
   sectionBadge: string;
   sectionHeading: string;
   sectionDescription: string;
   catalogLink: string;
-  categories: { name: string; icon: string; description: string }[];
+  categories: { name: string; icon: string; description: string; color?: string }[];
 }>();
 
 const resolvedCategories = computed(() =>
   props.categories.map((cat) => ({
     ...cat,
     iconComponent: iconMap[cat.icon] || iconMap.Package,
+    accent: resolveAccent(cat.color),
   }))
 );
 </script>

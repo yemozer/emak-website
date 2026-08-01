@@ -24,16 +24,12 @@
           :rel="service.external ? 'noopener noreferrer' : undefined"
           class="group relative overflow-hidden rounded-xl md:rounded-2xl border border-[rgb(178,178,178)]/20 bg-white p-6 md:p-8 lg:p-10 shadow-md hover:shadow-xl transition-all card-hover cursor-pointer"
         >
-          <!-- Gradient overlay on hover -->
-          <div class="absolute inset-0 bg-gradient-to-br from-[rgb(39,45,122)]/5 via-transparent to-[rgb(59,70,180)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-          <!-- Icon container with enhanced styling -->
-          <div class="relative mb-6 md:mb-8 flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-xl md:rounded-2xl bg-gradient-to-br from-[rgb(39,45,122)]/10 to-[rgb(39,45,122)]/5 transition-all group-hover:bg-gradient-to-br group-hover:from-[rgb(39,45,122)]/20 group-hover:to-[rgb(59,70,180)]/10 group-hover:scale-110 group-hover:shadow-glow">
-            <component :is="service.iconComponent" :size="32" class="md:w-10 md:h-10 text-[rgb(39,45,122)] transition-transform group-hover:scale-110" />
+          <div class="mb-6 md:mb-8">
+            <component :is="service.iconComponent" :size="36" :style="{ color: service.accent }" class="md:w-11 md:h-11 transition-transform duration-300 group-hover:scale-110" />
           </div>
 
-          <h3 class="relative mb-3 md:mb-4 text-xl md:text-2xl font-semibold text-[rgb(39,45,122)] group-hover:text-gradient-primary transition-all">{{ service.name }}</h3>
-          <p class="relative text-sm md:text-base leading-relaxed text-[rgb(178,178,178)] group-hover:text-gray-600 transition-colors">
+          <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold text-[rgb(39,45,122)]">{{ service.name }}</h3>
+          <p class="text-sm md:text-base leading-relaxed text-[rgb(178,178,178)] group-hover:text-gray-600 transition-colors">
             {{ service.description }}
           </p>
         </a>
@@ -45,18 +41,20 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { iconMap } from '../lib/icon-map';
+import { resolveAccent } from '../lib/accent-colors';
 
 const props = defineProps<{
   sectionBadge: string;
   sectionHeading: string;
   sectionDescription: string;
-  services: { name: string; icon: string; description: string; href: string; external: boolean }[];
+  services: { name: string; icon: string; description: string; href: string; external: boolean; color?: string }[];
 }>();
 
 const resolvedServices = computed(() =>
   props.services.map((service) => ({
     ...service,
     iconComponent: iconMap[service.icon] || iconMap.BookOpen,
+    accent: resolveAccent(service.color),
   }))
 );
 </script>

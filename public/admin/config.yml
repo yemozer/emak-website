@@ -87,6 +87,20 @@ collections:
                   - { label: "Bina", value: "Building2" }
                   - { label: "Izgara", value: "Grid3x3" }
                   - { label: "Konum", value: "MapPin" }
+              - name: color
+                label: "İkon Rengi"
+                widget: select
+                required: false
+                default: "blue"
+                options:
+                  - { label: "Mavi", value: "blue" }
+                  - { label: "Turkuaz", value: "cyan" }
+                  - { label: "Yeşil", value: "green" }
+                  - { label: "Turuncu", value: "orange" }
+                  - { label: "Hardal", value: "amber" }
+                  - { label: "Kırmızı", value: "red" }
+                  - { label: "Mor", value: "violet" }
+                  - { label: "Pembe", value: "pink" }
               - { name: description, label: "Açıklama", widget: text }
               - { name: href, label: "Link", widget: string, required: false }
               - { name: external, label: "Dış Link mi?", widget: boolean, default: false }
@@ -124,6 +138,20 @@ collections:
                   - { label: "Hesap Makinesi", value: "Calculator" }
                   - { label: "Alışveriş Sepeti", value: "ShoppingCart" }
                   - { label: "Konum", value: "MapPin" }
+              - name: color
+                label: "İkon Rengi"
+                widget: select
+                required: false
+                default: "blue"
+                options:
+                  - { label: "Mavi", value: "blue" }
+                  - { label: "Turkuaz", value: "cyan" }
+                  - { label: "Yeşil", value: "green" }
+                  - { label: "Turuncu", value: "orange" }
+                  - { label: "Hardal", value: "amber" }
+                  - { label: "Kırmızı", value: "red" }
+                  - { label: "Mor", value: "violet" }
+                  - { label: "Pembe", value: "pink" }
               - { name: description, label: "Açıklama", widget: text }
 
   # ============================================

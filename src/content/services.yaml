@@ -4,21 +4,25 @@ section_description: "Profesyonel ekibimiz ve geniş ürün yelpazemiz ile proje
 services:
   - name: "Ürün Kataloğu"
     icon: "BookOpen"
+    color: "green"
     description: "Geniş ürün kataloğumuz ile tüm ürünlerimizi detaylı inceleyebilir, teknik özelliklerine ulaşabilirsiniz."
     href: "https://katalog.emakyapi.revleno.com"
     external: false
   - name: "Hızlı Sevkiyat"
     icon: "Truck"
+    color: "red"
     description: "Türkiye genelindeki geniş lojistik ağımız ile zamanında ve güvenilir teslimat garantisi."
     href: ""
     external: false
   - name: "Hesap Tabloları"
     icon: "Calculator"
+    color: "blue"
     description: "Mantolama, bölme duvar, asma tavan ve diğer sistemler için hesaplama tabloları."
     href: "/hesap-tablolari"
     external: false
   - name: "Dijital Ticaret"
     icon: "ShoppingCart"
+    color: "violet"
     description: "B2B giriş ile online sipariş oluşturun, teklif alın, güvenli ödeme yapın ve siparişlerinizi takip edin."
     href: "https://emakyapi.revleno.com"
     external: true
