@@ -24,11 +24,14 @@
           :rel="service.external ? 'noopener noreferrer' : undefined"
           class="group relative overflow-hidden rounded-xl md:rounded-2xl border border-[rgb(178,178,178)]/20 bg-white p-6 md:p-8 lg:p-10 shadow-md hover:shadow-xl transition-all card-hover cursor-pointer"
         >
-          <div class="mb-6 md:mb-8">
-            <component :is="service.iconComponent" :size="36" :style="{ color: service.accent }" class="md:w-11 md:h-11 transition-transform duration-300 group-hover:scale-110" />
+          <div
+            class="mb-6 md:mb-8 flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
+            :style="{ backgroundColor: service.accent }"
+          >
+            <component :is="service.iconComponent" :size="28" class="md:w-8 md:h-8 text-white" />
           </div>
 
-          <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold text-[rgb(39,45,122)]">{{ service.name }}</h3>
+          <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold" :style="{ color: service.accent }">{{ service.name }}</h3>
           <p class="text-sm md:text-base leading-relaxed text-[rgb(178,178,178)] group-hover:text-gray-600 transition-colors">
             {{ service.description }}
           </p>

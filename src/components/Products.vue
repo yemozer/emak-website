@@ -26,11 +26,14 @@
             :href="catalogLink"
             class="group relative overflow-hidden rounded-xl border border-[rgb(178,178,178)]/20 bg-white p-6 shadow-sm hover:shadow-xl transition-all hover:border-[rgb(39,45,122)]/40 cursor-pointer hover:-translate-y-1"
           >
-            <div class="mb-4">
-              <component :is="category.iconComponent" :size="32" :style="{ color: category.accent }" class="transition-transform duration-300 group-hover:scale-110" />
+            <div
+              class="mb-4 flex h-12 w-12 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
+              :style="{ backgroundColor: category.accent }"
+            >
+              <component :is="category.iconComponent" :size="24" class="text-white" />
             </div>
 
-            <h4 class="text-lg font-semibold text-[rgb(39,45,122)] mb-2">{{ category.name }}</h4>
+            <h4 class="text-lg font-semibold mb-2" :style="{ color: category.accent }">{{ category.name }}</h4>
             <p class="text-sm text-[rgb(178,178,178)] leading-relaxed group-hover:text-gray-600 transition-colors">{{ category.description }}</p>
           </a>
         </div>
