@@ -64,3 +64,5 @@ brands:
   - name: WEBER
     logo: /brands/weber_logo_rgb-1400x491.png
     url: https://katalog.emakyapi.revleno.com/catalog?brands=7dc6cafc-a2a2-4c92-813d-7d2fcd2e82bd
+  - logo: /brands/cbs_logo.png
+    name: ÇBS
