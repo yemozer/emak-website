@@ -373,6 +373,18 @@ collections:
                       - { label: "Belge", value: "FileText" }
                       - { label: "Kurum", value: "Landmark" }
                   - { name: href, label: "Link (opsiyonel)", widget: string, required: false }
+          - { name: documents_heading, label: "Belgeler Başlığı", widget: string, required: false, default: "Belgeler" }
+          - name: documents
+            label: "Belgeler"
+            label_singular: "Belge"
+            widget: list
+            required: false
+            summary: "{{fields.name}}"
+            hint: "Her belge için bir dosya yükleyin VEYA bir link girin. İkisi de girilirse yüklenen dosya kullanılır. Belgeler yeni sekmede açılır."
+            fields:
+              - { name: name, label: "Belge Adı", widget: string }
+              - { name: file, label: "Dosya Yükle (PDF vb.)", widget: file, required: false, media_folder: "/public/documents", public_folder: "/documents" }
+              - { name: url, label: "veya Link", widget: string, required: false, hint: "Örn: https://drive.google.com/..." }
 
   # ============================================
   # ŞUBELER

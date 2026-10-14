@@ -188,10 +188,18 @@ export type CompanyInfoSection = {
   items: CompanyInfoItem[];
 };
 
+export type CompanyInfoDocument = {
+  name: string;
+  file?: string;
+  url?: string;
+};
+
 export type CompanyInfoContent = {
   page_heading: string;
   page_description: string;
   sections: CompanyInfoSection[];
+  documents_heading?: string;
+  documents?: CompanyInfoDocument[];
 };
 
 export type Branch = {
