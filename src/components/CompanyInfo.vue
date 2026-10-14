@@ -64,21 +64,20 @@
               {{ documentsHeading || 'Belgeler' }}
             </h2>
           </div>
-          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-5">
-            <li v-for="(doc, i) in visibleDocuments" :key="i">
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+            <li
+              v-for="(doc, i) in visibleDocuments"
+              :key="i"
+              class="px-5 py-2.5 border-b border-gray-50 last:border-b-0 sm:[&:nth-last-child(2):nth-child(odd)]:border-b-0"
+            >
               <a
                 :href="doc.link"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group flex items-center gap-3 rounded-lg border border-gray-100 px-4 py-3 transition-colors hover:border-[rgb(39,45,122)]/30 hover:bg-[rgb(39,45,122)]/5"
+                class="flex items-center gap-2 text-sm text-[rgb(39,45,122)] font-medium break-words hover:underline"
               >
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[rgb(39,45,122)]/5 text-[rgb(39,45,122)] transition-colors group-hover:bg-[rgb(39,45,122)] group-hover:text-white">
-                  <FileText :size="18" />
-                </span>
-                <span class="flex-1 text-sm font-medium text-gray-900 group-hover:text-[rgb(39,45,122)] break-words">
-                  {{ doc.name }}
-                </span>
-                <ExternalLink :size="16" class="shrink-0 text-gray-400 group-hover:text-[rgb(39,45,122)]" />
+                <FileText :size="14" class="flex-shrink-0" />
+                {{ doc.name }}
               </a>
             </li>
           </ul>
@@ -90,7 +89,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { FileText, ExternalLink } from 'lucide-vue-next';
+import { FileText } from 'lucide-vue-next';
 import { iconMap } from '../lib/icon-map';
 
 type Item = { label: string; value: string; icon?: string; href?: string };
